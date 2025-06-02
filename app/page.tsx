@@ -25,6 +25,7 @@ export default function Home() {
                 <li>Eduardo Pignatelli, UCL</li>
                 <li>Yifan Zhong, Peking University</li>
                 <li>Joe Marino, Google DeepMind</li>
+                <li>David Abel, Google DeepMind</li>
               </ul>
             </div>
           </div>
