@@ -1,3 +1,23 @@
+'use client'
+
+const ObfuscatedEmail = ({ name, user, domain, className }) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    window.location.href = `mailto:${user}@${domain}`;
+  };
+
+  return (
+    <a
+      href="#"
+      onClick={handleClick}
+      className={className}
+      style={{ cursor: 'pointer' }}
+    >
+      {name}
+    </a>
+  );
+};
+
 export default function ReadingGroup() {
   return (
     <>
@@ -14,7 +34,7 @@ export default function ReadingGroup() {
         <div className="container">
           <div className="columns is-centered">
             <div className="column is-two-thirds">
-              
+
               <div className="card mb-6">
                 <div className="card-content">
                   <h2 className="title is-4 has-text-primary">About Our Reading Group</h2>
@@ -54,21 +74,21 @@ export default function ReadingGroup() {
                     <p className="mb-4">Watch recordings of our past presentations and discussions:</p>
                     <div className="box has-background-light">
                       <div className="has-text-centered">
-                        <iframe 
-                          width="100%" 
-                          height="315" 
+                        <iframe
+                          width="100%"
+                          height="315"
                           src="https://www.youtube.com/embed/videoseries?list=PLtHBOLEKIlPTp9R6AbfE1vMO-dydApxad"
                           title="RL & Agents Reading Group Presentations"
-                          frameBorder="0" 
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                           allowFullScreen
-                          style={{maxWidth: '560px'}}
+                          style={{ maxWidth: '560px' }}
                         ></iframe>
                         <p className="mt-3">
-                          <a 
-                            href="https://www.youtube.com/playlist?list=PLtHBOLEKIlPTp9R6AbfE1vMO-dydApxad" 
+                          <a
+                            href="https://www.youtube.com/playlist?list=PLtHBOLEKIlPTp9R6AbfE1vMO-dydApxad"
                             className="button is-danger is-outlined"
-                            target="_blank" 
+                            target="_blank"
                             rel="noopener noreferrer"
                           >
                             <span>View Full Playlist</span>
@@ -86,9 +106,24 @@ export default function ReadingGroup() {
                   <div className="content">
                     <p><strong>Organisers:</strong></p>
                     <p>
-                      <a href="mailto:k.tessera@ed.ac.uk" className="has-text-link">Kale-ab Tessera</a> • 
-                      <a href="mailto:s.garcin@ed.ac.uk" className="has-text-link">Samuel Garcin</a> • 
-                      <a href="mailto:l.hinckeldey@ed.ac.uk" className="has-text-link">Leo Hinckeldey</a>
+                      <ObfuscatedEmail
+                        name="Kale-ab Tessera"
+                        user="k.tessera"
+                        domain="ed.ac.uk"
+                        className="has-text-link"
+                      /> • {' '}
+                      <ObfuscatedEmail
+                        name="Samuel Garcin"
+                        user="s.garcin"
+                        domain="ed.ac.uk"
+                        className="has-text-link"
+                      /> • {' '}
+                      <ObfuscatedEmail
+                        name="Leo Hinckeldey"
+                        user="l.hinckeldey"
+                        domain="ed.ac.uk"
+                        className="has-text-link"
+                      />
                     </p>
                   </div>
                 </div>
@@ -100,9 +135,9 @@ export default function ReadingGroup() {
                   <p className="mb-4">
                     We regularly host guest speakers. Please get in touch if you&apos;re interested in presenting your work.
                   </p>
-                  
+
                   <details>
-                    <summary className="button is-light is-small mb-4" style={{cursor: 'pointer'}}>
+                    <summary className="button is-light is-small mb-4" style={{ cursor: 'pointer' }}>
                       View some Past Speakers:
                     </summary>
                     <div className="columns is-multiline">
