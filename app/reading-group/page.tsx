@@ -35,7 +35,7 @@ export default function ReadingGroup() {
                   <h3 className="title is-5 has-text-primary">How to Join</h3>
                   <div className="content">
                     <p className="mb-3">
-                      📝 <strong>Sign up:</strong> <a href="https://forms.gle/2pc67usa9etxF3ts7" className="has-text-link">Join our mailing list</a>
+                      📝 <strong>Sign up:</strong> <a href="https://forms.gle/anHVSi97d6F6M37R6" className="has-text-link">Join our mailing list</a>
                     </p>
                     <p className="mb-3">
                       🗳️ <strong>Propose papers:</strong> <a href="https://github.com/edinburgh-rl/reading-group" className="has-text-link">Vote and suggest on GitHub</a>
@@ -71,9 +71,6 @@ export default function ReadingGroup() {
                             target="_blank" 
                             rel="noopener noreferrer"
                           >
-                            <span className="icon">
-                              <i className="fab fa-youtube"></i>
-                            </span>
                             <span>View Full Playlist</span>
                           </a>
                         </p>
@@ -82,7 +79,6 @@ export default function ReadingGroup() {
                   </div>
                 </div>
               </div>
-
 
               <div className="card mb-6">
                 <div className="card-content">
@@ -102,12 +98,12 @@ export default function ReadingGroup() {
                 <div className="card-content">
                   <h3 className="title is-5 has-text-primary">Guest Speakers</h3>
                   <p className="mb-4">
-                    We regularly host guest speakers. Please get in touch if you're interested in presenting your work.
+                    We regularly host guest speakers. Please get in touch if you&apos;re interested in presenting your work.
                   </p>
                   
-                 <details>
+                  <details>
                     <summary className="button is-light is-small mb-4" style={{cursor: 'pointer'}}>
-                      View some  past speakers
+                      View some Past Speakers:
                     </summary>
                     <div className="columns is-multiline">
                       <div className="column is-half">
