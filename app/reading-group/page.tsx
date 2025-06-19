@@ -1,15 +1,22 @@
 'use client'
 
-const ObfuscatedEmail = ({ name, user, domain, className }) => {
-  const handleClick = (e) => {
+interface ObfuscatedEmailProps {
+  name: string;
+  user: string;
+  domain: string;
+  className?: string;
+}
+
+const ObfuscatedEmail = ({ name, user, domain, className }: ObfuscatedEmailProps) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     window.location.href = `mailto:${user}@${domain}`;
   };
 
   return (
-    <a
-      href="#"
-      onClick={handleClick}
+    <a 
+      href="#" 
+      onClick={handleClick} 
       className={className}
       style={{ cursor: 'pointer' }}
     >
