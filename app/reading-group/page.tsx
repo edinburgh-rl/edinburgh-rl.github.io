@@ -49,7 +49,7 @@ export default function ReadingGroup() {
                     We organise regular meetings to discuss recent papers in Reinforcement Learning (RL), Multi-Agent RL and related areas (open-ended learning, LLM agents, robotics, etc).
                   </p>
                   <p className="mb-4">
-                    Meetings take place online and are open to everyone interested in reinforcement learning. Participants are expected to read the paper prior to the meeting.
+                    Meetings take place online and are open to everyone. Participants are expected to read the paper prior to the meeting.
                   </p>
                   <p className="is-size-7 has-text-grey">
                     <em>We were previously known as the Autonomous Agents Reading Group.</em>
