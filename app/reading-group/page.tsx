@@ -14,9 +14,9 @@ const ObfuscatedEmail = ({ name, user, domain, className }: ObfuscatedEmailProps
   };
 
   return (
-    <a 
-      href="#" 
-      onClick={handleClick} 
+    <a
+      href="#"
+      onClick={handleClick}
       className={className}
       style={{ cursor: 'pointer' }}
     >
@@ -41,6 +41,64 @@ export default function ReadingGroup() {
         <div className="container">
           <div className="columns is-centered">
             <div className="column is-two-thirds">
+              <div className="card mb-6">
+                <div className="card-content">
+                  <h3 className="title is-5 has-text-primary">Next Reading Group Session</h3>
+                  <div className="content">
+                    <p className="mb-2">
+                      <strong>Date &amp; Time:</strong> <span>Thursday, 10 July 2024, 15:00 BST</span>
+                    </p>
+                    <p className="mb-2">
+                      <strong>Speaker:</strong> Mattie Fellows
+                    </p>
+                    <p className="mb-2">
+                      <strong>Title:</strong> Simplifying Deep Temporal Difference Learning
+                    </p>
+                    <p className="mb-2">
+                      <strong>Links:</strong><br />
+                      <a
+                        href="https://arxiv.org/abs/2407.04811"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="has-text-link"
+                      >
+                        Paper
+                      </a>
+                      {' | '}
+                      <a
+                        href="https://blog.foersterlab.com/fixing-td-part-1/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="has-text-link"
+                      >
+                        Blog Part 1
+                      </a>
+                      {', '}
+                      <a
+                        href="https://blog.foersterlab.com/fixing-td-part-2/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="has-text-link"
+                      >
+                        Blog Part 2
+                      </a>
+                      {', '}
+                      <a
+                        href="https://mttga.github.io/posts/pqn/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="has-text-link"
+                      >
+                        PQN Blog
+                      </a>
+                    </p>
+                    <p>
+                      <strong>Bio:</strong><br />
+                      Mattie Fellows is currently a Postdoc at FLAIR in Oxford who is interested in the broad spectrum of RL, especially methods that combine the powerful theoretical insights with practical empirical benefits.
+                    </p>
+                  </div>
+                </div>
+              </div>
 
               <div className="card mb-6">
                 <div className="card-content">
