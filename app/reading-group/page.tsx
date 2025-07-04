@@ -43,7 +43,7 @@ export default function ReadingGroup() {
             <div className="column is-two-thirds">
               <div className="card mb-6">
                 <div className="card-content">
-                  <h3 className="title is-5 has-text-primary">Next Reading Group Session</h3>
+                  <h3 className="title is-5 has-text-primary">📅 Next Reading Group Session</h3>
                   <div className="content">
                     <p className="mb-2">
                       <strong>Date &amp; Time:</strong> <span>Thursday, 10 July 2024, 15:00 BST</span>
