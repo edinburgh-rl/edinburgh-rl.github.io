@@ -46,56 +46,45 @@ export default function ReadingGroup() {
                   <h3 className="title is-5 has-text-primary">📅 Next Reading Group Session</h3>
                   <div className="content">
                     <p className="mb-2">
-                      <strong>Date &amp; Time:</strong> <span>Thursday, 10 July 2024, 15:00 BST</span>
+                      <strong>Date &amp; Time:</strong> <span>Thursday, 24 July 2024, 15:00 BST</span>
                     </p>
                     <p className="mb-2">
-                      <strong>Speaker:</strong> Mattie Fellows
+                      <strong>Speaker:</strong> Cam Allen 
                     </p>
                     <p className="mb-2">
-                      <strong>Title:</strong> Simplifying Deep Temporal Difference Learning
+                      <strong>Title:</strong> The Agent Must Choose the Problem Model
                     </p>
                     <p className="mb-2">
                       <strong>Links:</strong><br />
                       <a
-                        href="https://arxiv.org/abs/2407.04811"
+                        href="https://camallen.net/files/lambda_discrepancy.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="has-text-link"
                       >
-                        Paper
+                        Main Paper
                       </a>
                       {' | '}
                       <a
-                        href="https://blog.foersterlab.com/fixing-td-part-1/"
+                        href="https://camallen.net/files/markov_state_abstractions.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="has-text-link"
                       >
-                        Blog Part 1
+                        Paper 2
                       </a>
                       {', '}
                       <a
-                        href="https://blog.foersterlab.com/fixing-td-part-2/"
+                        href="https://camallen.net/files/traj_abstr_preprint.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="has-text-link"
                       >
-                        Blog Part 2
-                      </a>
-                      {', '}
-                      <a
-                        href="https://mttga.github.io/posts/pqn/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="has-text-link"
-                      >
-                        PQN Blog
+                        Paper 3
                       </a>
                     </p>
-                    <p>
                       <strong>Bio:</strong><br />
-                      Mattie Fellows is currently a Postdoc at FLAIR in Oxford who is interested in the broad spectrum of RL, especially methods that combine the powerful theoretical insights with practical empirical benefits.
-                    </p>
+                      Cam Allen is a postdoctoral fellow at the Center for Human-Compatible Artificial Intelligence at the University of California, Berkeley. His research centers on problem formalization: what are the right conceptual models to express the problems we are trying to solve, and how can we build agents that help us model and solve those problems? More generally, Cam is interested in the foundations of intelligence—the computations that enable agency, learning, planning, abstraction, and interaction. He completed his PhD in Computer Science at Brown University in 2023, where he studied structured abstractions for general-purpose decision making, and he co-taught Berkeley's introductory AI course in spring 2024.
                   </div>
                 </div>
               </div>
