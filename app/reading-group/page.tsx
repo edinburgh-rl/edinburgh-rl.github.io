@@ -49,7 +49,7 @@ export default function ReadingGroup() {
                       <strong>Date &amp; Time:</strong> <span>Thursday, 24 July 2024, 15:00 BST</span>
                     </p>
                     <p className="mb-2">
-                      <strong>Speaker:</strong> Cam Allen 
+                      <strong>Speaker:</strong> Cam Allen
                     </p>
                     <p className="mb-2">
                       <strong>Title:</strong> The Agent Must Choose the Problem Model
@@ -83,8 +83,10 @@ export default function ReadingGroup() {
                         Paper 3
                       </a>
                     </p>
+                    <p className="mb-2">
                       <strong>Bio:</strong><br />
-                      Cam Allen is a postdoctoral fellow at the Center for Human-Compatible Artificial Intelligence at the University of California, Berkeley. His research centers on problem formalization: what are the right conceptual models to express the problems we are trying to solve, and how can we build agents that help us model and solve those problems? More generally, Cam is interested in the foundations of intelligence—the computations that enable agency, learning, planning, abstraction, and interaction. He completed his PhD in Computer Science at Brown University in 2023, where he studied structured abstractions for general-purpose decision making, and he co-taught Berkeley's introductory AI course in spring 2024.
+                      Cam Allen is a postdoctoral fellow at the Center for Human-Compatible Artificial Intelligence at the University of California, Berkeley. His research centers on problem formalization: what are the right conceptual models to express the problems we are trying to solve, and how can we build agents that help us model and solve those problems? More generally, Cam is interested in the foundations of intelligence—the computations that enable agency, learning, planning, abstraction, and interaction. He completed his PhD in Computer Science at Brown University in 2023, where he studied structured abstractions for general-purpose decision making, and he co-taught Berkeley&apos;s introductory AI course in spring 2024.
+                    </p>
                   </div>
                 </div>
               </div>
