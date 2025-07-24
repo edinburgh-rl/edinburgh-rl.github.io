@@ -1,2 +1,38 @@
-@use "~bulma/bulma"
+$darkred: #780000;
+$lightred: #c1121f;
+$darkblue: #003049;
+$lightblue: #669bbc;
+$orange: #ffb703;
 
+@use "~bulma/sass" with (
+    $primary: $darkblue,
+    $info: $lightblue,
+    $warning: $orange,
+    $danger: $lightred,
+);
+
+.is-full-height {
+  min-height: calc(100vh - 3.25rem);
+}
+
+.navbar-item {
+    color: white;
+}
+
+.navbar-item:hover {
+    color: var(--bulma-navbar-item-color)
+}
+
+.navbar-item img {
+    max-height: 50px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.no-hover {
+    pointer-events: none;
+}
+
+.is-active  {
+    background-color: inherit !important
+}

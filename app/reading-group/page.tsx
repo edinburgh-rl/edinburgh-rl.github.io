@@ -1,34 +1,16 @@
-'use client'
+import ObfuscatedEmail from "@/components/ObfuscatedEmail";
+import PageLayout from "@/components/PageLayout";
+import { Metadata } from "next";
 
-interface ObfuscatedEmailProps {
-  name: string;
-  user: string;
-  domain: string;
-  className?: string;
-}
-
-const ObfuscatedEmail = ({ name, user, domain, className }: ObfuscatedEmailProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    window.location.href = `mailto:${user}@${domain}`;
-  };
-
-  return (
-    <a
-      href="#"
-      onClick={handleClick}
-      className={className}
-      style={{ cursor: 'pointer' }}
-    >
-      {name}
-    </a>
-  );
+export const metadata: Metadata = {
+  title: "UoE RL Reading Group",
+  description: "University of Edinburgh Reinforcement Learning Reading Group",
 };
 
 export default function ReadingGroup() {
   return (
-    <>
-      <div className="hero is-light is-medium">
+    <PageLayout>
+      <div className="hero is-white is-small">
         <div className="hero-body">
           <div className="container has-text-centered">
             <h1 className="title is-2">🤖 RL & Agents Reading Group</h1>
@@ -245,6 +227,6 @@ export default function ReadingGroup() {
           </div>
         </div>
       </div>
-    </>
+    </PageLayout>
   );
 }
