@@ -1,7 +1,7 @@
 import { PeopleFrontMatter } from "@/lib/people-data-utils";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouseChimney } from "@fortawesome/free-solid-svg-icons";
-import { faXTwitter, faBluesky, faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faXTwitter, faBluesky, faLinkedin, faGithub, faGoogleScholar } from "@fortawesome/free-brands-svg-icons";
 import Image from "next/image";
 
 export default function PersonCard({ person }: { person: PeopleFrontMatter }) {
@@ -23,6 +23,9 @@ export default function PersonCard({ person }: { person: PeopleFrontMatter }) {
             <footer className="card-footer is-size-4">
                 {person.website !== undefined ? (
                     <a href={person.website} title="Personal Webpage" className="card-footer-item social-media-link"><FontAwesomeIcon icon={faHouseChimney} /></a>
+                ) : (<></>)}
+                {person.scholar !== undefined ? (
+                    <a href={person.scholar} title="Google Scholar" className="card-footer-item social-media-link"><FontAwesomeIcon icon={faGoogleScholar} /></a>
                 ) : (<></>)}
                 {person.github !== undefined ? (
                     <a href={person.github} title="Github" className="card-footer-item social-media-link"><FontAwesomeIcon icon={faGithub} /></a>

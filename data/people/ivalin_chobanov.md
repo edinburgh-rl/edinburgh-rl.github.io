@@ -1,7 +1,7 @@
 ---
 name: Ivalin Chobanov
 type: 🙌 Members
-occupation: PhD Informatics
+occupation: PhD student, Informatics
 photoUrl: ivalin_chobanov.jpeg
 website: https://ivalin.com
 github: https://github.com/ivalin-chobanov

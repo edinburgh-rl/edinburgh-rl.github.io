@@ -10,7 +10,8 @@ export interface PeopleFrontMatter extends FrontMatterData {
     github?: string,
     x?: string,
     bluesky?: string,
-    linkedin?: string
+    linkedin?: string,
+    scholar?: string
 }
 
 export interface PeopleData {
