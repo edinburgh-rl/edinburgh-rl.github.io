@@ -36,3 +36,17 @@ $orange: #ffb703;
 .is-active  {
     background-color: inherit !important
 }
+
+.social-media-link{
+    color: var(--bulma-text-strong);
+}
+
+.member-photo {
+  border-radius: 50%;
+  clip-path: circle();
+  flex: 0 0 auto;
+}
+
+.member-title {
+    flex: 1 1 auto;
+}

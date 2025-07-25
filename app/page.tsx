@@ -32,12 +32,12 @@ export default function Home() {
       </section>
       <section className="section p-5">
         <h1 className="title">&#127757; Find us on</h1>
-        <div className="level has-text-centered is-size-1 has-text-primary">
+        <div className="level has-text-centered is-size-1 has-text-primary is-mobile">
           <div className="level-item">
-            <a className={styles['social-media-link']} href="https://x.com/rl_agents_rg"><FontAwesomeIcon icon={faXTwitter}/></a>
+            <a className="social-media-link" href="https://x.com/rl_agents_rg"><FontAwesomeIcon icon={faXTwitter}/></a>
           </div>
           <div className="level-item">
-            <a className={styles['social-media-link']} href="https://bsky.app/profile/rl-agents-rg.bsky.social"><FontAwesomeIcon icon={faBluesky}/></a>
+            <a className="social-media-link" href="https://bsky.app/profile/rl-agents-rg.bsky.social"><FontAwesomeIcon icon={faBluesky}/></a>
           </div>
         </div>
       </section>
