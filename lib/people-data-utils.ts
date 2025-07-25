@@ -19,10 +19,10 @@ export interface PeopleData {
 }
 
 const membershipOrder: { [key: string]: number } = {
-    "Group Leads": 1,
-    "Members": 2,
-    "Associate Members": 3,
-    "Alumni": 4
+    "📚 Group Leads": 1,
+    "🙌 Members": 2,
+    "🧍 Associate Members": 3,
+    "🛫 Alumni": 4
 };
 
 export function sortByName(data: PeopleFrontMatter[]): PeopleFrontMatter[] {

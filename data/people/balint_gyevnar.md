@@ -1,6 +1,6 @@
 ---
 name: Bálint Gyevnár
-type: Members
+type: 🙌 Members
 occupation: |
     NLP CDT PhD & 
     Incoming postdoc at CMU

@@ -2,6 +2,12 @@ import PageLayout from "@/components/PageLayout";
 import PersonCard from "@/components/PersonCard";
 import { getFrontMatterData } from "@/lib/parse-front-matter";
 import { groupByType, PeopleFrontMatter } from "@/lib/people-data-utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "People | MARBLE",
+  description: "Current and past memebers of MARBLE",
+};
 
 async function getData() {
     return groupByType(getFrontMatterData('data/people') as PeopleFrontMatter[]);
