@@ -25,50 +25,16 @@ export default function ReadingGroup() {
             <div className="column is-two-thirds">
               <div className="card mb-6">
                 <div className="card-content">
-                  <h3 className="title is-5 has-text-primary">📅 Next Reading Group Session</h3>
+                  <h3 className="title is-5 has-text-primary">📅 Reading Group Update</h3>
                   <div className="content">
-                    <p className="mb-2">
-                      <strong>Date &amp; Time:</strong> <span>Thursday, 24 July 2024, 15:00 BST</span>
-                    </p>
-                    <p className="mb-2">
-                      <strong>Speaker:</strong> Cam Allen
-                    </p>
-                    <p className="mb-2">
-                      <strong>Title:</strong> The Agent Must Choose the Problem Model
-                    </p>
-                    <p className="mb-2">
-                      <strong>Links:</strong><br />
-                      <a
-                        href="https://camallen.net/files/lambda_discrepancy.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="has-text-link"
-                      >
-                        Main Paper
-                      </a>
-                      {' | '}
-                      <a
-                        href="https://camallen.net/files/markov_state_abstractions.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="has-text-link"
-                      >
-                        Paper 2
-                      </a>
-                      {', '}
-                      <a
-                        href="https://camallen.net/files/traj_abstr_preprint.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="has-text-link"
-                      >
-                        Paper 3
-                      </a>
-                    </p>
-                    <p className="mb-2">
-                      <strong>Bio:</strong><br />
-                      Cam Allen is a postdoctoral fellow at the Center for Human-Compatible Artificial Intelligence at the University of California, Berkeley. His research centers on problem formalization: what are the right conceptual models to express the problems we are trying to solve, and how can we build agents that help us model and solve those problems? More generally, Cam is interested in the foundations of intelligence—the computations that enable agency, learning, planning, abstraction, and interaction. He completed his PhD in Computer Science at Brown University in 2023, where he studied structured abstractions for general-purpose decision making, and he co-taught Berkeley&apos;s introductory AI course in spring 2024.
-                    </p>
+                    <div className="notification is-warning">
+                      <p className="mb-2">
+                        <strong>No Reading Group on August 7th, 2025</strong>
+                      </p>
+                      <p>
+                        No reading group on the 7th of August due to the Reinforcement Learning Conference (RLC).
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
