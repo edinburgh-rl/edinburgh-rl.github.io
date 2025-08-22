@@ -28,7 +28,7 @@ export default async function People() {
                 </section>
             ))}
             <section className="section p-5">
-                <p><i>* NLP = Natural Language Processing; CDT = Centre for Doctoral Training; CMU = Carnegie Mellon University</i></p>
+                <p><i>* NLP = Natural Language Processing; CDT = Centre for Doctoral Training; CMU = Carnegie Mellon University; RAS = Robotics and Autonomous Systems</i></p>
             </section>
         </PageLayout>
     );
