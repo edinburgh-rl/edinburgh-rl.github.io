@@ -23,7 +23,7 @@ export default function ReadingGroup() {
         <div className="container">
           <div className="columns is-centered">
             <div className="column is-two-thirds">
-             <div className="card mb-6">
+              <div className="card mb-6">
                 <div className="card-content">
                   <h3 className="title is-5 has-text-primary">📅 Next Reading Group Session - 4-5pm BST, Thurs Sep 4, 2025</h3>
                   <div className="content">
@@ -35,7 +35,7 @@ export default function ReadingGroup() {
                     </p>
                     <p className="mb-2">
                       <strong>Abstract:</strong><br />
-                      Continual learning is often motivated by the idea, known as the big world hypothesis, that the "world is bigger" than the agent. Recent problem formulations capture this idea by explicitly constraining an agent&apos;s capacity. In this talk, I propose an alternative approach which characterizes the implicit constraint faced by an agent embedded in its environment. I will outline how an embedded agent can be defined computationally, and then propose a self-prediction task for the computationally-embedded agent which necessitates continual adaptation. Lastly, I show that the self-prediction task represents a continual reinforcement learning problem in which the nonstationary is created by the agent.
+                      Continual learning is often motivated by the idea, known as the big world hypothesis, that the &quot;world is bigger&quot; than the agent. Recent problem formulations capture this idea by explicitly constraining an agent&apos;s capacity. In this talk, I propose an alternative approach which characterizes the implicit constraint faced by an agent embedded in its environment. I will outline how an embedded agent can be defined computationally, and then propose a self-prediction task for the computationally-embedded agent which necessitates continual adaptation. Lastly, I show that the self-prediction task represents a continual reinforcement learning problem in which the nonstationary is created by the agent.
                     </p>
                     <p className="mb-2">
                       <strong>Links:</strong><br />
