@@ -23,24 +23,24 @@ export default function ReadingGroup() {
         <div className="container">
           <div className="columns is-centered">
             <div className="column is-two-thirds">
-              <div className="card mb-6">
+             <div className="card mb-6">
                 <div className="card-content">
-                  <h3 className="title is-5 has-text-primary">📅 Next Reading Group Session - 3-4pm BST, Fri Aug 22, 2025</h3>
+                  <h3 className="title is-5 has-text-primary">📅 Next Reading Group Session - 4-5pm BST, Thurs Sep 4, 2025</h3>
                   <div className="content">
                     <p className="mb-2">
-                      <strong>Speaker:</strong> Eugene Vinitsky
+                      <strong>Speaker:</strong> Alex Lewandowski
                     </p>
                     <p className="mb-2">
-                      <strong>Title:</strong> Robust Self-Driving Emerges from Self-Play
+                      <strong>Title:</strong> The World Is Bigger: A Computationally-Embedded Perspective on the Big World Hypothesis
                     </p>
                     <p className="mb-2">
                       <strong>Abstract:</strong><br />
-                      Self-play has powered breakthroughs in two-player and multi-player games. Here we show that self-play is a surprisingly effective strategy in another domain. We show that robust and naturalistic driving emerges entirely from self-play in simulation at unprecedented scale -- 1.6~billion~km of driving. This is enabled by Gigaflow, a batched simulator that can synthesize and train on 42 years of subjective driving experience per hour on a single 8-GPU node. The resulting policy achieves state-of-the-art performance on three independent autonomous driving benchmarks. The policy outperforms the prior state of the art when tested on recorded real-world scenarios, amidst human drivers, without ever seeing human data during training. The policy is realistic when assessed against human references and achieves unprecedented robustness, averaging 17.5 years of continuous driving between incidents in simulation.
+                      Continual learning is often motivated by the idea, known as the big world hypothesis, that the "world is bigger" than the agent. Recent problem formulations capture this idea by explicitly constraining an agent&apos;s capacity. In this talk, I propose an alternative approach which characterizes the implicit constraint faced by an agent embedded in its environment. I will outline how an embedded agent can be defined computationally, and then propose a self-prediction task for the computationally-embedded agent which necessitates continual adaptation. Lastly, I show that the self-prediction task represents a continual reinforcement learning problem in which the nonstationary is created by the agent.
                     </p>
                     <p className="mb-2">
                       <strong>Links:</strong><br />
                       <a
-                        href="https://arxiv.org/abs/2502.03349"
+                        href="https://openreview.net/pdf?id=pDR4GXgpcY"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="has-text-link"
@@ -50,7 +50,7 @@ export default function ReadingGroup() {
                     </p>
                     <p className="mb-2">
                       <strong>Bio:</strong><br />
-                      Eugene Vinitsky is an assistant professor at NYU and the PI of the EMERGE lab. He received his PhD at UC Berkeley in Controls Engineering and holds prior degrees in Physics. His research focuses on scalable RL methods for designing autonomous systems in multi-agent settings, with a particular interest in enabling agents to interact and coordinate with humans. He has worked at Tesla, DeepMind, FAIR, and Apple Special Projects Group.
+                      Alex Lewandowski is a PhD candidate at the University of Alberta supervised by Dale Schuurmans and Marlos Machado. His research explores the principles underlying adaptive behaviour at the intersection of reinforcement learning, continual learning, and meta-learning. In particular, he is seeking to understand the fundamental problem faced by an agent that uses its experience to efficiently and continually adapt its behaviour.
                     </p>
                   </div>
                 </div>
