@@ -25,22 +25,22 @@ export default function ReadingGroup() {
             <div className="column is-two-thirds">
               <div className="card mb-6">
                 <div className="card-content">
-                  <h3 className="title is-5 has-text-primary">📅 Next Reading Group Session - 4-5pm BST, Thurs Sep 4, 2025</h3>
+                  <h3 className="title is-5 has-text-primary">📅 Next Reading Group Session - 3-4pm BST, Fri Sep 19, 2025</h3>
                   <div className="content">
                     <p className="mb-2">
-                      <strong>Speaker:</strong> Alex Lewandowski
+                      <strong>Speakers:</strong> Olya Mastikhina and Dhruv Sreenivas
                     </p>
                     <p className="mb-2">
-                      <strong>Title:</strong> The World Is Bigger: A Computationally-Embedded Perspective on the Big World Hypothesis
+                      <strong>Title:</strong> Optimistic critics can empower small actors
                     </p>
                     <p className="mb-2">
                       <strong>Abstract:</strong><br />
-                      Continual learning is often motivated by the idea, known as the big world hypothesis, that the &quot;world is bigger&quot; than the agent. Recent problem formulations capture this idea by explicitly constraining an agent&apos;s capacity. In this talk, I propose an alternative approach which characterizes the implicit constraint faced by an agent embedded in its environment. I will outline how an embedded agent can be defined computationally, and then propose a self-prediction task for the computationally-embedded agent which necessitates continual adaptation. Lastly, I show that the self-prediction task represents a continual reinforcement learning problem in which the nonstationary is created by the agent.
+                      Actor-critic methods have been central to many of the recent advances in deep reinforcement learning. The most common approach is to use symmetric architectures, whereby  both actor and critic have the same network topology and number of parameters. How-ever, recent works have argued for the advantages of asymmetric setups, specifically with the use of smaller actors. We perform broad empirical investigations and analyses to better understand the implications of this and find that, in general, smaller actors result in performance degradation and overfit critics. Our analyses suggest poor data collection, due to value underestimation, as one of the main causes for this behavior,and further highlight the crucial role the critic can play in alleviating this pathology.We explore techniques to mitigate the observed value underestimation, which enables further research in asymmetric actor-critic methods.
                     </p>
                     <p className="mb-2">
                       <strong>Links:</strong><br />
                       <a
-                        href="https://openreview.net/pdf?id=pDR4GXgpcY"
+                        href="https://arxiv.org/abs/2506.01016"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="has-text-link"
@@ -50,7 +50,7 @@ export default function ReadingGroup() {
                     </p>
                     <p className="mb-2">
                       <strong>Bio:</strong><br />
-                      Alex Lewandowski is a PhD candidate at the University of Alberta supervised by Dale Schuurmans and Marlos Machado. His research explores the principles underlying adaptive behaviour at the intersection of reinforcement learning, continual learning, and meta-learning. In particular, he is seeking to understand the fundamental problem faced by an agent that uses its experience to efficiently and continually adapt its behaviour.
+                      Olya Mastikhina and Dhruv Sreenivas are PhD students at University of Montreal and Mila - Quebec AI Institute, where they work with Pablo Samuel Castro. Olya’s research focuses on reinforcement learning (RL) and the study of agency, with a particular interest in how broader conceptions of agency can inform how we think about and design intelligent systems. Dhruv’s research focuses on sample-efficient, scalable RL, particularly on how to design and scale RL and imitation learning algorithms to complex control tasks using representation learning, exploration and new model architectures.
                     </p>
                   </div>
                 </div>
