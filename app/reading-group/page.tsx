@@ -1,5 +1,7 @@
 import ObfuscatedEmail from "@/components/ObfuscatedEmail";
 import PageLayout from "@/components/PageLayout";
+import { getFrontMatterData } from "@/lib/parse-front-matter";
+import { getReadingGroupNextSession, ReadingGroupSessionRaw } from "@/lib/reading-group-utils";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,7 +9,13 @@ export const metadata: Metadata = {
   description: "University of Edinburgh Reinforcement Learning Reading Group",
 };
 
-export default function ReadingGroup() {
+async function getData() {
+  return getReadingGroupNextSession(getFrontMatterData('data/reading_group') as ReadingGroupSessionRaw[]);
+}
+
+export default async function ReadingGroup() {
+  const data = await getData();
+  console.log(data);
   return (
     <PageLayout>
       <div className="hero is-white is-small">
@@ -21,34 +29,31 @@ export default function ReadingGroup() {
 
       <section className="section p-5 has-text-justified">
         <h1 className="title">📅 Next Reading Group Session</h1>
-        <p className="mb-1">
-          <strong>Time and date:</strong> 3-4pm BST, Fri Sep 19, 2025
-        </p>
-        <p className="mb-1">
-          <strong>Speakers:</strong> Olya Mastikhina and Dhruv Sreenivas
-        </p>
-        <p className="mb-1">
-          <strong>Title:</strong> Optimistic critics can empower small actors
-        </p>
-        <p className="mb-1">
-          <strong>Abstract:</strong><br />
-          Actor-critic methods have been central to many of the recent advances in deep reinforcement learning. The most common approach is to use symmetric architectures, whereby  both actor and critic have the same network topology and number of parameters. How-ever, recent works have argued for the advantages of asymmetric setups, specifically with the use of smaller actors. We perform broad empirical investigations and analyses to better understand the implications of this and find that, in general, smaller actors result in performance degradation and overfit critics. Our analyses suggest poor data collection, due to value underestimation, as one of the main causes for this behavior,and further highlight the crucial role the critic can play in alleviating this pathology.We explore techniques to mitigate the observed value underestimation, which enables further research in asymmetric actor-critic methods.
-        </p>
-        <p className="mb-1">
-          <strong>Links:</strong><br />
-          <a
-            href="https://arxiv.org/abs/2506.01016"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="has-text-link"
-          >
-            Paper
-          </a>
-        </p>
-        <p className="mb-2">
-          <strong>Bio:</strong><br />
-          Olya Mastikhina and Dhruv Sreenivas are PhD students at University of Montreal and Mila - Quebec AI Institute, where they work with Pablo Samuel Castro. Olya’s research focuses on reinforcement learning (RL) and the study of agency, with a particular interest in how broader conceptions of agency can inform how we think about and design intelligent systems. Dhruv’s research focuses on sample-efficient, scalable RL, particularly on how to design and scale RL and imitation learning algorithms to complex control tasks using representation learning, exploration and new model architectures.
-        </p>
+        {data == undefined ? <>
+          <p><i>No upcomming sessions are currently planned! Please check again later for updates.</i></p>
+        </> : <>
+          <p className="mb-1">
+            <strong>Time and date:</strong> {data.datetime}
+          </p>
+          <p className="mb-1">
+            <strong>Speakers:</strong> {data.speakers}
+          </p>
+          <p className="mb-1">
+            <strong>Title:</strong> {data.title}
+          </p>
+          <p className="mb-1">
+            <strong>Abstract:</strong><br />
+            {data.abstract}
+          </p>
+          {data.links ? <p className="mb-1">
+            <strong>Links:</strong><br />
+            {data.links.map((x, k) => (<span key={k}><a href={x.href}>{x.name}</a>{(data.links.length - 1 !== k) && ', '}</span>))}
+          </p> : ''}
+          <p className="mb-2">
+            <strong>Bio:</strong><br />
+            {data.bio}
+          </p>
+        </>}
       </section>
 
       <section className="section p-5 has-text-justified">
