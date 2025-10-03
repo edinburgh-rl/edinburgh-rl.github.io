@@ -52,7 +52,7 @@ export default function ReadingGroup() {
       </section>
 
       <section className="section p-5 has-text-justified">
-        <h1 className="title">About Our Reading Group</h1>
+        <h1 className="title">ℹ️ About Our Reading Group</h1>
         <p className="mb-4">
           We organise regular meetings to discuss recent papers in Reinforcement Learning (RL), Multi-Agent RL and related areas (open-ended learning, LLM agents, robotics, etc). Meetings take place online and are open to everyone. Participants are expected to read the paper prior to the meeting.
         </p>
@@ -62,21 +62,18 @@ export default function ReadingGroup() {
       </section>
 
       <section className="section p-5 has-text-justified">
-        <h1 className="title">Participate</h1>
-        <p>
+        <h1 className="title">✅ Participate</h1>
+        <p className="mb-1">
           📝 <strong>Sign up:</strong> <a href="https://forms.gle/anHVSi97d6F6M37R6" className="has-text-link">Join our mailing list</a>
         </p>
-        <p>
+        <p className="mb-1">
           🗳️ <strong>Propose papers:</strong> <a href="https://github.com/edinburgh-rl/reading-group" className="has-text-link">Vote and suggest on GitHub</a>
-        </p>
-        <p>
-          📺 <strong>Past recordings:</strong> <a href="https://www.youtube.com/@RL_And_Agents_Reading_Group" className="has-text-link" target="_blank" rel="noopener noreferrer">Visit our YouTube channel</a>
         </p>
       </section>
 
       <section className="section p-5 has-text-justified">
         <h1 className="title">📺 Recorded Presentations</h1>
-        <p className="mb-4">Watch recordings of our past presentations and discussions:</p>
+        <p className="mb-4">Watch recordings of our past presentations and discussions on our <a href="https://www.youtube.com/@RL_And_Agents_Reading_Group">YouTube</a> channel:</p>
         <div>
           <iframe
             width="100%"
@@ -102,7 +99,7 @@ export default function ReadingGroup() {
       </section>
 
       <section className="section p-5">
-        <h1 className="title">Contacts</h1>
+        <h1 className="title">📧 Contacts</h1>
         <p><strong>Organisers:</strong>&nbsp;
           <ObfuscatedEmail
             name="Kale-ab Tessera"
@@ -126,7 +123,7 @@ export default function ReadingGroup() {
       </section>
 
       <section className="section p-5">
-        <h1 className="title">Guest Speakers</h1>
+        <h1 className="title">🗣️ Guest Speakers</h1>
         <p className="mb-4">
           We regularly host guest speakers. Please get in touch if you&apos;re interested in presenting your work.
         </p>
