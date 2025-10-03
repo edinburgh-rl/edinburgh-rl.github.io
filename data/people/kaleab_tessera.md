@@ -1,6 +1,6 @@
 ---
 name: Kale-ab Tessera
-type: 🙌 Members
+type: Members
 occupation: PhD student, Informatics
 photoUrl: kaleab_tessera.webp
 website: https://kaleabtessera.com/

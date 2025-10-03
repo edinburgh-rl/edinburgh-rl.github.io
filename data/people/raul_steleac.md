@@ -1,6 +1,6 @@
 ---
 name: Raul Steleac
-type: 🙌 Members
+type: Members
 occupation: PhD student, RAS CDT
 photoUrl: raul_steleac.jpg
 github: https://github.com/raulsteleac

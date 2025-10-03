@@ -1,6 +1,14 @@
 import _ from 'lodash';
 import { FrontMatterData } from "./parse-front-matter";
 
+const membershipIcons: { [key: string]: string} = {
+    "Advisors": "📚",
+    "Members": "🙌",
+    "Associate Members": "🧍",
+    "Alumni": "🛫",
+    "Alumni Associates": "✈️"
+}
+
 export interface PeopleFrontMatter extends FrontMatterData {
     type: string,
     name: string,
@@ -16,14 +24,16 @@ export interface PeopleFrontMatter extends FrontMatterData {
 
 export interface PeopleData {
     type: string,
+    icon: string,
     people: PeopleFrontMatter[]
 }
 
 const membershipOrder: { [key: string]: number } = {
-    "📚 Group Leads": 1,
-    "🙌 Members": 2,
-    "🧍 Associate Members": 3,
-    "🛫 Alumni": 4
+    "Advisors": 2,
+    "Members": 1,
+    "Associate Members": 3,
+    "Alumni": 4,
+    "Alumni Associates": 5
 };
 
 export function sortByName(data: PeopleFrontMatter[]): PeopleFrontMatter[] {
@@ -37,6 +47,7 @@ export function groupByType(data: PeopleFrontMatter[]): PeopleData[] {
         .groupBy('type')
         .map((value, key) => ({
             type: key,
+            icon: membershipIcons[key],
             people: value
         })).sort((a, b) => membershipOrder[a.type] - membershipOrder[b.type])
         .value();

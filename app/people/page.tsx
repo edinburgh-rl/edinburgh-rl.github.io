@@ -19,7 +19,7 @@ export default async function People() {
         <PageLayout>
             {data.map((type) => (
                 <section key={type.type} className="section p-5">
-                    <h1>{type.type}</h1>
+                    <h1>{type.icon} {type.type}</h1>
                     <div className="content is-flex is-flex-wrap-wrap is-flex-direction-row">
                         {type.people.map((person) => (
                             <PersonCard key={person.name} person={person} />

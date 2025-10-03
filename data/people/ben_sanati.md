@@ -1,6 +1,6 @@
 ---
 name: Ben Sanati
-type: 🙌 Members
+type: Members
 occupation: PhD student, Informatics
 photoUrl: ben_sanati.jpg
 website: https://ben-sanati.github.io/
