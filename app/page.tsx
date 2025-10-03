@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./page.module.scss";
 import { Metadata } from "next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBluesky, faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faBluesky, faXTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 export const metadata: Metadata = {
   title: "Home | MARBLE",
@@ -38,6 +38,9 @@ export default function Home() {
           </div>
           <div className="level-item">
             <a className="social-media-link" href="https://bsky.app/profile/rl-agents-rg.bsky.social"><FontAwesomeIcon icon={faBluesky}/></a>
+          </div>
+          <div className="level-item">
+            <a className="social-media-link" href="https://www.youtube.com/@RL_And_Agents_Reading_Group"><FontAwesomeIcon icon={faYoutube}/></a>
           </div>
         </div>
       </section>
