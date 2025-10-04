@@ -51,3 +51,15 @@ $orange: #ffb703;
 .member-title {
     flex: 1 1 auto;
 }
+
+.blog-articles-link {
+    color: var(--has-text-primary) !important;
+}
+
+.blog-articles-link:hover {
+    text-decoration: underline !important;
+}
+
+.blog-article-card {
+    max-width: 30rem;
+}
