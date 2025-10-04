@@ -13,7 +13,7 @@ export default function Navbar() {
         >
             <div className="navbar-brand">
                 <Link className="navbar-item p-0 no-hover" href={"/"}>
-                    <img src="logo.png"></img>
+                    <img src="logo.png" width={150}></img>
                 </Link>
                 <a
                     role="button"

@@ -30,8 +30,13 @@ $orange: #ffb703;
     padding-bottom: 1px;
 }
 
+.no-hover:hover {
+    // pointer-events: none;
+   --bulma-navbar-item-background-a: 0 !important;
+}
+
 .no-hover {
-    pointer-events: none;
+    margin-left: 10px;
 }
 
 .is-active  {
