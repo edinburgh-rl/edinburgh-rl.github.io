@@ -21,7 +21,7 @@ export default async function People() {
                 <div className="hero-body">
                     <div className="container">
                         <h1 className="title is-2">👨‍🎓 People</h1>
-                        <p className="subtitle is-4">List of people associated with our group</p>
+                        <p className="subtitle is-5">List of people associated with our group</p>
                     </div>
                 </div>
             </div>

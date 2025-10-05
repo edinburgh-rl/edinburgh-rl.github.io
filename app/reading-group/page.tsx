@@ -22,7 +22,7 @@ export default async function ReadingGroup() {
         <div className="hero-body">
           <div className="container">
             <h1 className="title is-2">🤖 RL & Agents Reading Group</h1>
-            <p className="subtitle is-4">University of Edinburgh</p>
+            <p className="subtitle is-5">University of Edinburgh</p>
           </div>
         </div>
       </div>
