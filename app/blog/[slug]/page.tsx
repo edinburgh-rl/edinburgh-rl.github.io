@@ -14,12 +14,6 @@ import { h } from 'hastscript';
 import { Centered } from "@/components/blog/Centered";
 import WithCaption from "@/components/blog/WithCaption";
 
-
-export const metadata: Metadata = {
-    title: "Blog | MARBLE",
-    description: "Articles written by members of the group",
-};
-
 export async function generateStaticParams() {
   const posts = getFrontMatterData('data/blog') as BlogFrontMatter[];
  
@@ -30,6 +24,24 @@ export async function generateStaticParams() {
 
 async function getData(filename: string) {
     return getBlogArticleData(`data/blog/${filename}.mdx`) as BlogArticle;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }>}): Promise<Metadata> {
+    const data = await getData((await params).slug);
+
+    if(!data) {
+        return {
+            title: "Article not found",
+            description: "This article cannot be found"
+        }
+    }
+
+    return {
+        title: `${data.frontMatter.title} | MARBLE`,
+        authors: [{ name: data.frontMatter.author }],
+        description: data.frontMatter.description ?? '',
+        keywords: data.frontMatter.keywords ?? ''
+    }
 }
 
 export default async function Article({ params }: { params: Promise<{ slug: string }>}) {
@@ -50,7 +62,7 @@ export default async function Article({ params }: { params: Promise<{ slug: stri
 
     const components = {Centered, WithCaption};
 
-    console.log("data is", data);
+
     return (
         <PageLayout>
             <section className="p-5">

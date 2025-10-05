@@ -6,7 +6,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "People | MARBLE",
-    description: "Current and past memebers of MARBLE",
+    description: "Members of the MARBLE group. Includes current and past members, current and past associated memebers, and advisors",
+    keywords: ['members', 'associates', 'associated members', 'advisors']
 };
 
 async function getData() {

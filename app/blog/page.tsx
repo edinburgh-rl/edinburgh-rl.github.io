@@ -6,7 +6,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Blog | MARBLE",
-    description: "Articles written by members of the group",
+    description: "Articles written by members of the MARBLE group",
+    keywords: ["blog", "reinforcement learning", "RL", "MARL", "mutli-agent reinforcement learning", "multi-agent"]
 };
 
 async function getData() {
@@ -29,11 +30,13 @@ export default async function People() {
             <section className="section p-5">
 
                 <div className="grid is-col-min-12">
-                    {data.map((x, idx) => (
+                    {data.length > 0 ? data.map((x, idx) => (
                         <div key={idx} className="cell">
                             <ArticleCard article={x} />
                         </div>
-                    ))}
+                    )) : (
+                        <p><i>There are currently no articles. Please check again later.</i></p>
+                    )}
                 </div>
             </section>
 

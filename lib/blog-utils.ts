@@ -8,6 +8,9 @@ export interface BlogFrontMatter extends FrontMatterData {
     author: string,
     date: string,
     picture?: string
+    description?: string,
+    keywords?: string[]
+    hide?: boolean 
 }
 
 export interface BlogArticle {
@@ -16,7 +19,7 @@ export interface BlogArticle {
 }
 
 export function getBlogArticles(data: BlogFrontMatter[]): BlogFrontMatter[] {
-    return data.sort((x, y) => Date.parse(y.date) - Date.parse(x.date)).map((x) => ({
+    return data.filter((x) => x.hide ? false : true).sort((x, y) => Date.parse(y.date) - Date.parse(x.date)).map((x) => ({
         ...x,
         date: new Intl.DateTimeFormat('en-GB', {
             timeZone: 'Europe/London',

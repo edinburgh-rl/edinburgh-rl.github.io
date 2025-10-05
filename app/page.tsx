@@ -7,7 +7,8 @@ import { faBluesky, faXTwitter, faYoutube } from "@fortawesome/free-brands-svg-i
 
 export const metadata: Metadata = {
   title: "Home | MARBLE",
-  description: "Multi-Agent, Reinforcement, Behavior and Learning at Edinburgh",
+  description: "Multi-Agent, Reinforcement, Behavior and Learning (MARBLE) is an interest group based at the University of Edinburgh focused on topics like reinforcement learning, multi-agent reinforcement learning and behavior",
+  keywords: ['edinburgh rl', 'edinburgh marl', 'RL', 'MARL', 'reinforcement learning', 'multi-agent reinforcement learning', 'interest group']
 };
 
 export default function Home() {

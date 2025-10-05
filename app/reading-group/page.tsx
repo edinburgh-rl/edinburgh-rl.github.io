@@ -5,8 +5,9 @@ import { getReadingGroupNextSession, ReadingGroupSessionRaw } from "@/lib/readin
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "UoE RL Reading Group",
+  title: "RL & Agents Reading Group",
   description: "University of Edinburgh Reinforcement Learning Reading Group",
+  keywords: ['reading group', 'reinforcement learning', 'MARL', 'RL', 'multi-agent reinforcement learning', 'edinburgh rl']
 };
 
 async function getData() {

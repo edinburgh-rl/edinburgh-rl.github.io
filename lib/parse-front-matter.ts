@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 
 export interface FrontMatterData {
     id: string,
-    [key: string]: string | object | undefined
+    [key: string]: string | object | boolean | undefined
 }
 
 export function getFrontMatterData(folder: string): FrontMatterData[] {
