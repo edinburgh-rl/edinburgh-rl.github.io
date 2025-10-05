@@ -14,9 +14,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <PageLayout>
-      <div className="notification is-info is-light">
-        📝 This website is currently under construction. If you are interested in the reading group, please visit <Link href={"/reading-group"}>our Reading Group page</Link>.
-      </div>
       <div className={`hero is-medium ${styles['custom-hero-bg']}`}>
         <div className="hero-body">
           <div className="container">
@@ -26,11 +23,17 @@ export default function Home() {
         </div>
       </div>
       <section className="section p-5">
-        <h1 className="title">&#128214; About us  </h1>
+        <h1 className="title">&#128214; About us</h1>
         <p>
           We are an interest group focused on Reinforcement Learning and Multi-Agent Reinforcement Learning, based at the University of Edinburgh.
           Formerly known as the Autonomous Agents Research Group, we hold regular reading group meetings where invited speakers present the latest
           developments in the field. You can learn more <Link href={"/reading-group"}>here</Link>.
+        </p>
+      </section>
+      <section className="section p-5">
+        <h1 className="title">☑️ Joining the group</h1>
+        <p>
+          We will open to new members at the start of each semester (Sept./Oct. and Jan./Feb.). If you are a current student at the University of Edinburgh and would like to join the group, please fill out <a href="https://tinyurl.com/join-marble">this form</a> and someone will be in touch!
         </p>
       </section>
       <section className="section p-5">
