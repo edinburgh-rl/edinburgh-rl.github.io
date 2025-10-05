@@ -12,7 +12,7 @@ export function getFrontMatterData(folder: string): FrontMatterData[] {
 
     const fileNames = fs.readdirSync(dir);
     return fileNames.map((filename: string) => {
-        const id = filename.replace(/\.md$/, '');
+        const id = filename.replace(/\.mdx?$/, '');
         const fullPath = path.join(dir, filename);
         const contents = fs.readFileSync(fullPath, 'utf-8');
         const matterData = matter(contents);

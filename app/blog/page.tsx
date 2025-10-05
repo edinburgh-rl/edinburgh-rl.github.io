@@ -30,7 +30,7 @@ export default async function People() {
 
                 <div className="grid is-col-min-12">
                     {data.map((x, idx) => (
-                        <div key={idx} className="cell is-flex is-justify-content-center">
+                        <div key={idx} className="cell">
                             <ArticleCard article={x} />
                         </div>
                     ))}

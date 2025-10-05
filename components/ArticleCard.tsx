@@ -1,4 +1,5 @@
 import { BlogFrontMatter } from "@/lib/blog-utils";
+import Link from "next/link";
 
 export default function ArticleCard({ article }: { article: BlogFrontMatter }) {
     return (
@@ -12,7 +13,7 @@ export default function ArticleCard({ article }: { article: BlogFrontMatter }) {
                 </figure>
             </div>
             <div className="card-content p-3">
-                <p className="title is-4"><a className="blog-articles-link" href="#">{article.title}</a></p>
+                <p className="title is-4"><Link className="blog-articles-link" href={`/blog/${article.id}`}>{article.title}</Link></p>
                 <p className="is-size-5 m-0">{article.author}</p>
                 <p><i>{article.date}</i></p>
             </div>
