@@ -1,0 +1,160 @@
+---
+title: Example MDX file article
+author: Ivalin Chobanov
+date: 2025-10-05
+---
+# Testing how text is displayed
+In this section we are testing how text is displayed on the page.
+
+## Italic text
+This sentence includes *italic* text. To display it, we've used a standard markdown syntax with the asterisk. In this sentence we also use <i>italic</i> but this time we have used the HTML tag \<i>
+
+## Bold text
+Now we are testing how **bold** text is displayed. In this example we used the double asterisk (\**). And of course, we now test <b>bold</b> using the HTML variant.
+
+## Strikethrough text
+Here we test how ~strikethrough~ text works. The HTML equivalent is to use the \<s> tag. For example <s>strikethough</s>
+
+## Subscript and superscript
+Water, chemically known as H<sub>2</sub>O, is essential for life. One of the most famous equation in physics is E=mc<sup>2</sup>.
+
+## Underlined text
+Sometimes we might want to emphasize about something <ins>important</ins>. In this case we use the \<ins> HTML tag.
+
+## Quotations
+When we want to cite someone else, we should use the quotations block.
+> Stay hungry. Stay foolish - Steve Jobs
+
+## Code blocks
+### Code or command within the line
+We can denote a piece of code or command within a sentence. For example, if we're talking about the method `sum()`.
+
+### Code or command in a block without a programming language
+```
+do_step_one()
+do_step_two()
+```
+
+### Code in a specific language
+```python
+def add(a, b):
+    return a + b
+```
+
+## Links
+You can find a basic markdown guide [here](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+You can also create a link to a [heading](#testing-how-text-is-displayed) in the article.
+
+## Lists
+### Unordered list
+Here we are testing an unordered list:
+- item 1
+- item 2
+    - item 2, part 1
+    - item 2, part 2
+- item 3
+
+### Ordered list
+1. item 1
+2. item 2
+    1. item 2, part 1
+    2. item 2, part 2
+3. item 3
+
+### Mixed list
+1. item 1
+2. item 2
+    - part 1
+    - part 2
+3. item 3
+
+## Task Lists
+- [x] Task one
+- [ ] Task two
+- [ ] Task three
+
+## Writing footnotes
+Reinforcement Learning is very cool[^1].
+
+[^1]: According to us
+
+# Images
+You can use the basic markdown syntax to display images:
+```
+![alt text](url)
+```
+This will produce the following:
+![Example image](/images/blog/default.png)
+
+However, we might want to style this image. For example, we might want to make resize it. In this case, we can use 
+standard HTML `<img>` tag.
+<img src="/images/blog/default.png" alt="Example picture" width="300"/>
+
+If we want to add a figure with caption, we can use the following HTML code:
+```HTML
+<figure>
+  <img src="image.jpg" alt="Description of image" width="300"/>
+  <figcaption>Figure 1: This is the caption.</figcaption>
+</figure>
+```
+This would produce the following:
+<figure>
+  <img src="/images/blog/default.png" alt="Description of image" width="300"/>
+  <figcaption>Figure 1: This is the caption. We want to test adding a lot of text here</figcaption>
+</figure>
+
+# Tables
+Here we show how tables work:
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+
+You can centre the table using a custom component `<Centered>`:
+```jsx
+<Centered>
+// Your table goes here
+</Centered>
+```
+The result is:
+<Centered>
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+</Centered>
+
+You can add a caption to the table with a custom component `<WithCaption>` like so:
+```jsx
+<WithCaption caption="Figure 2: My table">
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+</WIthCaption>
+```
+This produces the following:
+<WithCaption caption="Figure 2: My table">
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+</WithCaption>
+
+# Maths
+Finally, we want to show how to write `LaTeX` equations. You can write an inline equation like $1 + 2 = 3$ by writing `$1+2=3$`.
+
+To write this in a block, you can surround your equation like so:
+```
+$$
+E=mc^2
+$$
+```
+to produce the following:
+$$
+E = mc^2
+$$

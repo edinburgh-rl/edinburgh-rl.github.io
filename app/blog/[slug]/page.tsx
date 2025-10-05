@@ -8,6 +8,12 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import '@/public/styles/a11y-dark.css'
 import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import { h } from 'hastscript';
+import { Centered } from "@/components/blog/Centered";
+import WithCaption from "@/components/blog/WithCaption";
+
 
 export const metadata: Metadata = {
     title: "Blog | MARBLE",
@@ -31,9 +37,18 @@ export default async function Article({ params }: { params: Promise<{ slug: stri
     const options: MDXRemoteOptions = {
         mdxOptions: {
             remarkPlugins: [remarkMath, remarkGfm],
-            rehypePlugins: [rehypeKatex, rehypeHighlight]
+            rehypePlugins: [
+                rehypeKatex, 
+                rehypeHighlight, 
+                rehypeSlug, 
+                [rehypeAutolinkHeadings, {
+                    content: () => h('span.blog-articles-link', {}, '#')
+                }]
+            ]
         }
     }
+
+    const components = {Centered, WithCaption};
 
     console.log("data is", data);
     return (
@@ -46,7 +61,7 @@ export default async function Article({ params }: { params: Promise<{ slug: stri
                 </div>
             </section>
             <section className="p-5">
-                <MDXRemote source={data.content} options={options}/>
+                <MDXRemote source={data.content} options={options} components={components}/>
             </section>
         </PageLayout>
     );
