@@ -17,12 +17,14 @@ export default function Home() {
       <div className="notification is-info is-light">
         📝 This website is currently under construction. If you are interested in the reading group, please visit <Link href={"/reading-group"}>our Reading Group page</Link>.
       </div>
-      <section className={`hero is-medium ${styles['custom-hero-bg']}`}>
+      <div className={`hero is-medium ${styles['custom-hero-bg']}`}>
         <div className="hero-body">
-          <p className="title">&#128075; Welcome to MARBLE</p>
-          <p className="subtitle">Multi-Agent, Reinforcement, Behavior and Learning at Edinburgh</p>
+          <div className="container">
+            <h1 className="title">&#128075; Welcome to MARBLE</h1>
+            <p className="subtitle is-5">Multi-Agent, Reinforcement, Behavior and Learning at Edinburgh</p>
+          </div>
         </div>
-      </section>
+      </div>
       <section className="section p-5">
         <h1 className="title">&#128214; About us  </h1>
         <p>
@@ -35,13 +37,13 @@ export default function Home() {
         <h1 className="title">&#127757; Find us on</h1>
         <div className="level has-text-centered is-size-1 has-text-primary is-mobile">
           <div className="level-item">
-            <a className="social-media-link" href="https://x.com/rl_agents_rg"><FontAwesomeIcon icon={faXTwitter}/></a>
+            <a className="social-media-link" href="https://x.com/rl_agents_rg"><FontAwesomeIcon icon={faXTwitter} /></a>
           </div>
           <div className="level-item">
-            <a className="social-media-link" href="https://bsky.app/profile/rl-agents-rg.bsky.social"><FontAwesomeIcon icon={faBluesky}/></a>
+            <a className="social-media-link" href="https://bsky.app/profile/rl-agents-rg.bsky.social"><FontAwesomeIcon icon={faBluesky} /></a>
           </div>
           <div className="level-item">
-            <a className="social-media-link" href="https://www.youtube.com/@RL_And_Agents_Reading_Group"><FontAwesomeIcon icon={faYoutube}/></a>
+            <a className="social-media-link" href="https://www.youtube.com/@RL_And_Agents_Reading_Group"><FontAwesomeIcon icon={faYoutube} /></a>
           </div>
         </div>
       </section>
