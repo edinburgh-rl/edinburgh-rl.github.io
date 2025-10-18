@@ -13,6 +13,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { h } from 'hastscript';
 import { Centered } from "@/components/blog/Centered";
 import WithCaption from "@/components/blog/WithCaption";
+import NotFound from "@/app/not-found";
 
 export async function generateStaticParams() {
   const posts = getFrontMatterData('data/blog') as BlogFrontMatter[];
@@ -31,8 +32,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     if(!data) {
         return {
-            title: "Article not found",
-            description: "This article cannot be found"
+            title: "Error 404 | MARBLE",
+            description: "Page not found"
         }
     }
 
@@ -46,6 +47,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function Article({ params }: { params: Promise<{ slug: string }>}) {
     const data = await getData((await params).slug);
+
+    if(!data) {
+        return NotFound();
+    }
+
+
     const options: MDXRemoteOptions = {
         mdxOptions: {
             remarkPlugins: [remarkMath, remarkGfm],
