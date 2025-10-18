@@ -30,11 +30,12 @@ export function getBlogArticles(data: BlogFrontMatter[]): BlogFrontMatter[] {
     }));
 }
 
-export function getBlogArticleData(filePath: string): BlogArticle {
+export function getBlogArticleData(filePath: string): BlogArticle | undefined {
     const file = path.join(process.cwd(), filePath);
     const filename = file.split(path.sep).pop()?.replace(/\.mdx$/, '');
     const content = fs.readFileSync(file, 'utf-8');
     const matterData = matter(content);
+    if(matterData.data.hide) return undefined;
     return {frontMatter: {
         ...matterData.data,
         id: filename ?? '',
