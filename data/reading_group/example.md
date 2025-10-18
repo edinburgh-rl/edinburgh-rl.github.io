@@ -1,5 +1,5 @@
 ---
-datetime: 2025-01-01 14:30Z
+datetime: 2025-01-01 14:30
 speakers: John Smith
 title: Rl talk
 abstract: RL is the future

@@ -1,4 +1,6 @@
 import { FrontMatterData } from "./parse-front-matter";
+import { fromZonedTime, format } from 'date-fns-tz';
+import { enGB } from 'date-fns/locale/en-GB';
 
 interface Link {
     name: string,
@@ -24,18 +26,13 @@ interface ReadingGroupSession extends FrontMatterData {
 }
 
 export function getReadingGroupNextSession(data: ReadingGroupSessionRaw[]): ReadingGroupSession | undefined {
+    const timezone = 'Europe/London';
+    const dateNow = new Date(Date.now());
+
     return data.filter((x) => {
-        return Date.parse(x.datetime) > Date.now();
-    }).sort((x, y) => Date.parse(y.datetime) - Date.parse(x.datetime)).map((x) => ({
+        return fromZonedTime(x.datetime, timezone) > dateNow;
+    }).sort((x, y) => fromZonedTime(y.datetime, timezone).getTime() - fromZonedTime(x.datetime, timezone).getTime()).map((x) => ({
         ...x,
-        datetime: new Intl.DateTimeFormat('en-GB', {
-            timeZone: 'Europe/London',
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZoneName: 'short',
-        }).format(Date.parse(x.datetime))
+        datetime: format(x.datetime, 'd MMMM yyyy, HH:mm zzz', {timeZone: timezone, locale: enGB})
     })).pop();
 }
