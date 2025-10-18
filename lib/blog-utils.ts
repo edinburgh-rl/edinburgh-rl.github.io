@@ -15,7 +15,7 @@ export interface BlogFrontMatter extends FrontMatterData {
 
 export interface BlogArticle {
     frontMatter: BlogFrontMatter,
-    content: any
+    content: string
 }
 
 export function getBlogArticles(data: BlogFrontMatter[]): BlogFrontMatter[] {

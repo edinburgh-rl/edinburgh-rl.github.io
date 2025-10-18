@@ -1,4 +1,3 @@
-import { xor } from "lodash";
 import { FrontMatterData } from "./parse-front-matter";
 
 interface Link {
