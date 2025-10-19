@@ -1,6 +1,6 @@
 ---
 name: Max Tamborski
-type: 🛫 Alumni
+type: Alumni
 occupation: PhD student at the University of Cambridge
 photoUrl: max_tamborski.webp
 website: https://max-tamborski.github.io/

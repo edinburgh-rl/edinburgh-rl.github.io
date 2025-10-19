@@ -9,6 +9,7 @@ $orange: #ffb703;
     $info: $lightblue,
     $warning: $orange,
     $danger: $lightred,
+    $tablet: 1300px
 );
 
 .is-full-height {
@@ -29,8 +30,12 @@ $orange: #ffb703;
     padding-bottom: 1px;
 }
 
+.no-hover:hover {
+   --bulma-navbar-item-background-a: 0 !important;
+}
+
 .no-hover {
-    pointer-events: none;
+    margin-left: 10px;
 }
 
 .is-active  {
@@ -49,4 +54,16 @@ $orange: #ffb703;
 
 .member-title {
     flex: 1 1 auto;
+}
+
+.blog-articles-link {
+    color: var(--bulma-text-strong) !important;
+}
+
+.blog-articles-link:hover {
+    text-decoration: underline !important;
+}
+
+.blog-article-card {
+    max-width: 30rem;
 }

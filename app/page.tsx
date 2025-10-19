@@ -3,27 +3,27 @@ import Link from "next/link";
 import styles from "./page.module.scss";
 import { Metadata } from "next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBluesky, faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faBluesky, faXTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 export const metadata: Metadata = {
   title: "Home | MARBLE",
-  description: "Multi-Agent, Reinforcement, Behavior and Learning at Edinburgh",
+  description: "Multi-Agent, Reinforcement, Behavior and Learning (MARBLE) is an interest group based at the University of Edinburgh focused on topics like reinforcement learning, multi-agent reinforcement learning and behavior",
+  keywords: ['edinburgh rl', 'edinburgh marl', 'RL', 'MARL', 'reinforcement learning', 'multi-agent reinforcement learning', 'interest group']
 };
 
 export default function Home() {
   return (
     <PageLayout>
-      <div className="notification is-info is-light">
-        📝 This website is currently under construction. If you are interested in the reading group, please visit <Link href={"/reading-group"}>our Reading Group page</Link>.
-      </div>
-      <section className={`hero is-medium ${styles['custom-hero-bg']}`}>
+      <div className={`hero is-medium ${styles['custom-hero-bg']}`}>
         <div className="hero-body">
-          <p className="title">&#128075; Welcome to MARBLE</p>
-          <p className="subtitle">Multi-Agent, Reinforcement, Behavior and Learning at Edinburgh</p>
+          <div className="container">
+            <h1 className="title">&#128075; Welcome to MARBLE</h1>
+            <p className="subtitle is-5">Multi-Agent, Reinforcement, Behavior and Learning at Edinburgh</p>
+          </div>
         </div>
-      </section>
+      </div>
       <section className="section p-5">
-        <h1 className="title">&#128214; About us  </h1>
+        <h1 className="title">&#128214; About us</h1>
         <p>
           We are an interest group focused on Reinforcement Learning and Multi-Agent Reinforcement Learning, based at the University of Edinburgh.
           Formerly known as the Autonomous Agents Research Group, we hold regular reading group meetings where invited speakers present the latest
@@ -31,13 +31,22 @@ export default function Home() {
         </p>
       </section>
       <section className="section p-5">
+        <h1 className="title">☑️ Joining the group</h1>
+        <p>
+          We will open to new members at the start of each semester (Sept./Oct. and Jan./Feb.). If you are a current student at the University of Edinburgh and would like to join the group, please fill out <a href="https://tinyurl.com/join-marble">this form</a> and someone will be in touch!
+        </p>
+      </section>
+      <section className="section p-5">
         <h1 className="title">&#127757; Find us on</h1>
         <div className="level has-text-centered is-size-1 has-text-primary is-mobile">
           <div className="level-item">
-            <a className="social-media-link" href="https://x.com/rl_agents_rg"><FontAwesomeIcon icon={faXTwitter}/></a>
+            <a className="social-media-link" href="https://x.com/rl_agents_rg"><FontAwesomeIcon icon={faXTwitter} /></a>
           </div>
           <div className="level-item">
-            <a className="social-media-link" href="https://bsky.app/profile/rl-agents-rg.bsky.social"><FontAwesomeIcon icon={faBluesky}/></a>
+            <a className="social-media-link" href="https://bsky.app/profile/rl-agents-rg.bsky.social"><FontAwesomeIcon icon={faBluesky} /></a>
+          </div>
+          <div className="level-item">
+            <a className="social-media-link" href="https://www.youtube.com/@RL_And_Agents_Reading_Group"><FontAwesomeIcon icon={faYoutube} /></a>
           </div>
         </div>
       </section>

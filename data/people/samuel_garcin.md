@@ -1,6 +1,6 @@
 ---
 name: Samuel Garcin
-type: 🙌 Members
+type: Members
 occupation: PhD student, RAS CDT
 photoUrl: samuel_garcin.jpg
 website: https://francelico.github.io/samuelgarcin.github.io/

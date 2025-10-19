@@ -1,6 +1,6 @@
 ---
 name: David Abel
-type: 📚 Group Leads
+type: Advisors
 occupation: Honorary Fellow
 photoUrl: david_abel.jfif
 website: https://david-abel.github.io/

@@ -1,6 +1,6 @@
 ---
 name: Alper Demir
-type: 🛫 Alumni
+type: Alumni Associates
 occupation: Assistant Professor at Izmir University of Economics
 photoUrl: alper_demir.JPG
 website: https://gliese876b.github.io/

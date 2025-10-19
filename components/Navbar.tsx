@@ -13,7 +13,7 @@ export default function Navbar() {
         >
             <div className="navbar-brand">
                 <Link className="navbar-item p-0 no-hover" href={"/"}>
-                    <img src="logo.png"></img>
+                    <img src="/logo.png" width={150}></img>
                 </Link>
                 <a
                     role="button"
@@ -38,6 +38,7 @@ export default function Navbar() {
                 <div className="navbar-end">
                     <Link className="navbar-item" href={"/"}>Home</Link>
                     <Link className="navbar-item" href={"/people"}>People</Link>
+                    <Link className="navbar-item" href={"/blog"}>Blog</Link>
                     <Link className="navbar-item" href={"/reading-group"}>Reading Group</Link>
                 </div>
             </div>

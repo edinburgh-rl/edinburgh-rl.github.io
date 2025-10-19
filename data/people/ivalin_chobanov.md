@@ -1,6 +1,6 @@
 ---
 name: Ivalin Chobanov
-type: 🙌 Members
+type: Members
 occupation: PhD student, Informatics
 photoUrl: ivalin_chobanov.jpeg
 website: https://ivalin.com
