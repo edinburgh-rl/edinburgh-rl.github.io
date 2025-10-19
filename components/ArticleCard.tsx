@@ -7,7 +7,7 @@ export default function ArticleCard({ article }: { article: BlogFrontMatter }) {
             <div className="card-image">
                 <figure className="image is-16by9">
                     <img
-                        src={article.picture ? article.picture : "images/blog/default.png"}
+                        src={article.picture ? article.picture : "/images/blog/default.png"}
                         alt="Article image"
                     />
                 </figure>
