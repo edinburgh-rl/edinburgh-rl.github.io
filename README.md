@@ -37,7 +37,7 @@ To add information about an upcoming reading group session, please add a new mar
 | links     | list     | (Optional) List of links used to provide external references. See an example of the formatting below.          |
 
 Example of a markdown file for an upcoming session:
-```
+```markdown
 ---
 datetime: 2025-10-15 14:00
 speakers: John Smith and Nick Johnson
@@ -157,7 +157,7 @@ To add member to the people page, please add a new markdown file under the `/dat
 | scholar      | string   | (Optional) URL to Google Scholar page                         |
 
 Example of a markdown front matter:
-```
+```markdown
 ---
 name: John Smith
 type: Members
