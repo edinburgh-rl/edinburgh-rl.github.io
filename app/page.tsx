@@ -33,7 +33,7 @@ export default function Home() {
       <section className="section p-5">
         <h1 className="title">☑️ Joining the group</h1>
         <p>
-          We will open to new members at the start of each semester (Sept./Oct. and Jan./Feb.). If you are a current student at the University of Edinburgh and would like to join the group, please fill out <a href="https://tinyurl.com/join-marble">this form</a> and someone will be in touch!
+          Thank you for your interest in joining our group! Unfortunately, we are not accepting new members at this time. However, we may open applications again in 2026. Stay tuned!
         </p>
       </section>
       <section className="section p-5">
