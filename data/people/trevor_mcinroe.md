@@ -1,6 +1,6 @@
 ---
 name: Trevor McInroe
-type: Members
+type: Alumni
 occupation: PhD student, Informatics
 photoUrl: trevor_mcinroe.png
 website: https://trevormcinroe.github.io/
