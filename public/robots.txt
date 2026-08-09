@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://edinburgh-rl.github.io/
+
+# Sitemaps
+Sitemap: https://edinburgh-rl.github.io/sitemap.xml
