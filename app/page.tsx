@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "./page.module.scss";
 import { Metadata } from "next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import { faBluesky, faXTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 export const metadata: Metadata = {
@@ -14,6 +15,9 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <PageLayout>
+      <div className="notification is-warning has-text-danger">
+        <FontAwesomeIcon icon={faUserGroup}/> We are currently accepting new members. If you are interested in joining our group, please express your interest <a href="https://forms.gle/ysDZS6FMCYJDXYes7">here</a>.
+      </div>
       <div className={`hero is-medium ${styles['custom-hero-bg']}`}>
         <div className="hero-body">
           <div className="container">
