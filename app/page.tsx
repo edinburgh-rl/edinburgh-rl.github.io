@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <PageLayout>
-      <div className="notification is-warning has-text-danger">
-        <FontAwesomeIcon icon={faUserGroup}/> We are currently accepting new members. If you are interested in joining our group, please express your interest <a href="https://forms.gle/ysDZS6FMCYJDXYes7">here</a>.
-      </div>
+      {/* <div className="notification is-warning has-text-danger">
+        <FontAwesomeIcon icon={faUserGroup}/> We are currently accepting new members. If you are interested in joining our group, please express your interest <a href="#">here</a>.
+      </div> */}
       <div className={`hero is-medium ${styles['custom-hero-bg']}`}>
         <div className="hero-body">
           <div className="container">
