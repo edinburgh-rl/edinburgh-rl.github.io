@@ -37,7 +37,7 @@ export default function Home() {
       <section className="section p-5">
         <h1 className="title">☑️ Joining the group</h1>
         <p>
-          Thank you for your interest in joining our group! Unfortunately, we are not accepting new members at this time. However, we may open applications again in 2026. Stay tuned!
+          Thank you for your interest in joining our group! Unfortunately, we are not accepting new members at this time. However, we may open applications again in 2027. Stay tuned!
         </p>
       </section>
       <section className="section p-5">
