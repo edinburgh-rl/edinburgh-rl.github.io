@@ -1,7 +1,7 @@
 ---
 name: Trevor McInroe
 type: Alumni
-occupation: PhD student, Informatics
+occupation: Research Scientist, Skild AI
 photoUrl: trevor_mcinroe.png
 website: https://trevormcinroe.github.io/
 github: https://github.com/trevormcinroe/
