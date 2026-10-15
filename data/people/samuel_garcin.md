@@ -1,7 +1,7 @@
 ---
 name: Samuel Garcin
-type: Members
-occupation: PhD student, RAS CDT
+type: Alumni
+occupation: Research Scientist, Electronic Arts
 photoUrl: samuel_garcin.jpg
 website: https://francelico.github.io/samuelgarcin.github.io/
 github: https://github.com/francelico/
