@@ -8,4 +8,5 @@ github: https://github.com/KaleabTessera
 bluesky: https://bsky.app/profile/kale-ab.bsky.social
 linkedin: https://www.linkedin.com/in/kale-ab-tessera-013976101/
 x: https://x.com/KaliTessera
+openalex: "A5048679971"
 ---

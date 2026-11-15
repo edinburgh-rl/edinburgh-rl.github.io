@@ -19,7 +19,10 @@ export interface PeopleFrontMatter extends FrontMatterData {
     x?: string,
     bluesky?: string,
     linkedin?: string,
-    scholar?: string
+    scholar?: string,
+    openalex?: string,
+    publicationNames?: string[],
+    publications?: boolean
 }
 
 export interface PeopleData {

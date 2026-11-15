@@ -9,4 +9,5 @@ bluesky: https://bsky.app/profile/flyingworkshop.bsky.social
 linkedin: https://www.linkedin.com/in/logan-bhamidipaty/
 scholar: https://scholar.google.com/citations?user=wJ_Eo0sAAAAJ&hl=en&authuser=1
 x: https://x.com/loganmb_
+openalex: "A5136384990"
 ---

@@ -8,4 +8,5 @@ github: https://github.com/francelico/
 scholar: https://scholar.google.com/citations?user=LY331OgAAAAJ&hl=en
 x: https://x.com/samuelgarcin
 linkedin: https://www.linkedin.com/in/samuel-garcin-7469b9b1/
+openalex: "A5058892062"
 ---

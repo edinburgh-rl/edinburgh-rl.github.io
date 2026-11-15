@@ -7,4 +7,5 @@ website: https://gbalint.me/
 github: https://github.com/gyevnarb
 bluesky: https://bsky.app/profile/gbalint.bsky.social
 linkedin: https://www.linkedin.com/in/gyevnarb
+openalex: "A5069295532"
 ---

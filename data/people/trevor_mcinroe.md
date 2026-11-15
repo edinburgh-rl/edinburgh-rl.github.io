@@ -8,4 +8,5 @@ github: https://github.com/trevormcinroe/
 x: https://x.com/trevormcinroe/
 linkedin: https://www.linkedin.com/in/trevor-mcinroe/
 scholar: https://scholar.google.com/citations?user=ZjG8iOUAAAAJ&hl=en
+openalex: "A5075574083"
 ---

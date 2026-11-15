@@ -6,4 +6,5 @@ photoUrl: siddarth_singh.jpg
 github: https://github.com/siddarthsinghzar
 linkedin: https://www.linkedin.com/in/siddarthsingh1
 scholar: https://scholar.google.com/citations?user=RDxZpTwAAAAJ
+openalex: ""
 ---

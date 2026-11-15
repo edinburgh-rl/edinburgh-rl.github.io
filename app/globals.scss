@@ -4,7 +4,7 @@ $darkblue: #003049;
 $lightblue: #669bbc;
 $orange: #ffb703;
 
-@use "~bulma/sass" with (
+@use "bulma/sass" with (
     $primary: $darkblue,
     $info: $lightblue,
     $warning: $orange,

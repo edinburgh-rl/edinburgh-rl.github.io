@@ -42,10 +42,30 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      - name: Restore publication snapshot and crawl cache
+        uses: actions/cache/restore@v6
+        with:
+          path: |
+            data/publications/snapshot.json
+            .cache/publications
+          key: ${{ runner.os }}-publications-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            ${{ runner.os }}-publications-v1-
+      - name: Test publication importer
+        # The importer tests use fixtures and make no network requests.
+        run: npm run test:publications
       - name: Build app
         run: npm run build
         env:
           PAGES_BASE_PATH: ${{ steps.setup-pages.outputs.base_path }}
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+      - name: Save publication snapshot and crawl cache
+        uses: actions/cache/save@v6
+        with:
+          path: |
+            data/publications/snapshot.json
+            .cache/publications
+          key: ${{ runner.os }}-publications-v1-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Upload artifacts
         uses: actions/upload-pages-artifact@v5
         with:

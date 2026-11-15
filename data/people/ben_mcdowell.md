@@ -8,4 +8,5 @@ github: https://github.com/bmcd243
 bluesky: https://bsky.app/profile/bmcd243.bsky.social
 linkedin: https://www.linkedin.com/in/ben-mcd/
 x: https://x.com/bmcd243
+openalex: ""
 ---

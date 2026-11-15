@@ -23,7 +23,7 @@ npx serve out
 ```
 You will not need to do this most of the time. It is best to test the website under the local dev environment as it updates the pages as they are updated. However, if you want to test the end results (how it would appear on the web after publishing via the GitHub Actions) then you may use that.
 
-**Note**: there is a `postbuild` script that runs after the website is build which would update the sitemap used for indexing the website. The sitemap is built via the [`next-sitemap`](https://github.com/iamvishnusankar/next-sitemap) package. The settings can be found inside the `next-sitemap-config.js` file. Note that `/blog/example` is excluded from the sitemap as this is an example blog demonstrating how to write an article.
+**Note**: the `postbuild` script generates the sitemap and robots.txt directly in `out/`, the directory deployed to GitHub Pages. The sitemap is built via [`next-sitemap`](https://github.com/iamvishnusankar/next-sitemap), configured in `next-sitemap.config.js`. `/publications` is indexed; the legacy blog routes are excluded.
 
 ## Reading group sessions
 To add information about an upcoming reading group session, please add a new markdown file under the `/data/reading_group` folder. The information about the reading group is added as markdown front matter. Currently, the supported fields are:
@@ -61,7 +61,112 @@ Information about the reading group sessions and how they are displayed on the w
 
 An example markdown file called `example.md` can be found under the `/data/reading_group` which provides an easy way to create a new session markdown file.
 
-## Blog articles
+## Publications
+
+The `/publications` page replaces the blog listing. `/blog` shows the same page so existing links continue to work. Each `npm run build` discovers publications through OpenAlex, enriches their metadata using Crossref, arXiv and publisher pages, and exports the static site. The existing daily GitHub Actions job also runs this refresh.
+
+Publications are grouped under year headings, newest first. Search and member/year filters apply before grouping, so selecting a year shows only that year's papers. Each card has one Paper button (official publication when available, otherwise arXiv) and an optional Project website button. Cards do not display images.
+
+### Researcher IDs
+
+Each person in `data/people/*.md` has an `openalex` field. Use an OpenAlex **author** ID (starts with `A`), or its full profile URL:
+
+```yaml
+openalex: "A5136384990"
+```
+
+Blank IDs are skipped. The initial IDs are suggestions and should be reviewed against the person's papers, affiliations, and personal website. To suggest IDs for new members or blank fields:
+
+```sh
+npm run publications:discover
+npm run publications:discover -- --write
+```
+
+The first command previews matches; `--write` saves a suggestion only when a single matching name or Edinburgh-affiliated candidate is found. Ambiguous names stay blank. Existing IDs are preserved. Optional `publicationNames: ["Another Full Name"]` helps match name variations during discovery. Researcher lookup runs only when explicitly requested; normal builds use the saved IDs. Author profiles can be split or incorrectly merged by OpenAlex, so these matches cannot guarantee complete coverage.
+
+By default, the page includes full publication histories for all people listed on the site, including advisors and alumni. Articles, conference papers, reviews, and preprints are imported. Set `publications: false` on a member to exclude their profile from importing. A coauthored paper can still appear through another member. Missing venues and years are labelled as unavailable; preprints are identified explicitly.
+
+### Refreshing and developing locally
+
+```sh
+npm run publications:sync
+npm run dev
+npm run test:publications
+```
+
+The importer follows all result pages, merges shared DOI/arXiv/OpenAlex identifiers, and cautiously merges exact-title preprint/published pairs with the same first author. Secondary matches require compatible authors and publication years as well as a matching or very similar title, so a changed title can be reconciled without accepting the first search result. Group authors are highlighted by their OpenAlex IDs. These IDs are retained across unambiguous middle-name and initial variants within a matched paper.
+
+### Secondary publication sources and paper links
+
+OpenAlex identifies the initial set of papers. The importer then reads BibTeX, citation metadata and structured publication records on member pages, checks candidate publisher pages, and uses Crossref's API for registered DOI metadata. arXiv's official API supplies canonical abstract links and author-provided project references; known IDs are requested in batches with at least three seconds between requests. No arXiv HTML scraping is needed.
+
+Publisher-confirmed records and matched Crossref records take priority for the title, venue, year and paper link. A missing year in a secondary record cannot erase a known year from OpenAlex. A verified arXiv copy is the fallback. The card displays a single Paper button; when a published link is available it is used instead of arXiv. If a secondary source is temporarily unavailable, an already known publication venue/year is retained. Unverified institutional landing pages and arbitrary OpenAlex record pages are not used as paper links.
+
+For example, ASSISTAX's older OpenAlex title and repository link are reconciled against the author's BibTeX and the RLJ publisher page. The card uses **Reinforcement Learning Journal, 2026**, links to the RLJ article, and includes its project website. No paper-specific override is needed.
+
+These checks improve coverage but cannot guarantee that every paper is indexed correctly or every external URL remains available. Sources can be incomplete, rate limited, or contradictory. Unresolved matches are logged and can be corrected in `overrides.json`; the importer does not invent a venue or substitute a generic university homepage.
+
+For higher API allowances, set `OPENALEX_API_KEY` in the environment. On GitHub, add it as an Actions secret with the same name. The importer works without a key, subject to OpenAlex's shared allowance. The key is sent in an authorization header and is never saved in the snapshot.
+
+For a completely offline build, set `PUBLICATIONS_OFFLINE=1`. To skip member/project website crawling, set `PUBLICATIONS_ENRICH=0`; Crossref and arXiv metadata can still refresh. Set `PUBLICATIONS_METADATA=0` to skip secondary metadata requests while retaining previously resolved data. In PowerShell, for example:
+
+```powershell
+$env:PUBLICATIONS_OFFLINE = "1"
+npm.cmd run build
+Remove-Item Env:PUBLICATIONS_OFFLINE
+```
+
+### Project websites
+
+The bounded crawler inspects member homepages and up to two linked research/publication pages per member. It reads inline JSON/JSON-LD and BibTeX; when publications are generated by JavaScript, it also inspects literal publication objects in up to two same-origin scripts. Remote JavaScript is parsed as data and is never executed. This supports sites such as Ben Sanati's, whose initial HTML has an empty publication list. It is not a full browser renderer, so data computed dynamically or fetched through an unknown API may still need an override.
+
+Project candidates come from these records, nearby publication links, and arXiv API comments. Candidate pages must match the publication title/authors or its DOI/arXiv identifiers. Crawling respects robots.txt and crawl delays, checks redirects, rejects private-network destinations, limits time and response sizes, and caches page metadata for seven days. Failed discoveries are cached for one day. HTTP 404/410 project pages are rejected, including previously discovered links that have disappeared. Each run inspects at most 100 uncached pages, so further enrichment can happen on later builds. There is no general web-search service or Google Scholar scraper.
+
+Some projects are not linked from these sources. Their cards still show the bibliography and paper link. Add an explicit project link using overrides when needed.
+
+### Corrections and manually added papers
+
+Edit `data/publications/overrides.json`. Keys come from a paper's `id` or `ids` in `snapshot.json`, such as `openalex:W123` or a lowercase `doi:10.1234/example`. Overrides take priority over imported fields. Use `null` to suppress an automatically discovered project link.
+
+```json
+{
+  "exclude": ["openalex:W123"],
+  "overrides": {
+    "openalex:W456": {
+      "venue": "ICML",
+      "year": 2026,
+      "status": "published",
+      "projectUrl": "https://example.org/project/"
+    }
+  },
+  "additions": [
+    {
+      "id": "manual:my-paper",
+      "title": "A paper not yet indexed",
+      "authors": [{ "name": "Example Author", "memberId": "example_author" }],
+      "memberIds": ["example_author"],
+      "venue": "RLC",
+      "year": 2026,
+      "status": "published",
+      "paperUrl": "https://example.org/paper.pdf"
+    }
+  ]
+}
+```
+
+`memberIds` use the profile filename without `.md` and drive the member filter. Each manual ID must start with `manual:`. Supported correction fields are `title`, `authors`, `memberIds`, `venue`, `year`, `status`, `paperUrl`, `arxivUrl`, and `projectUrl`.
+
+### Saved data and failures
+
+`data/publications/snapshot.json` is a checked-in fallback with publication records per researcher, source timestamps, resolved bibliographic records with source URLs in `bibliography`, and discovered project links. Commit updated snapshots when useful. `.cache/publications/web.json` holds disposable page/script metadata and `.cache/publications/metadata.json` caches secondary API responses. Successful API lookups are cached for seven days; empty results and failures are retried after one day. Both cache files are ignored by Git. GitHub Actions restores and saves the snapshot and caches between builds; the checked-in snapshot supports fresh checkouts if the Actions cache expires. Credentials and HTML are not included in the publication snapshot.
+
+Requests have bounded retries and timeouts. A failed researcher refresh retains that researcher's matching snapshot; a failed later result page discards the partial response. Changing or clearing an author ID removes the old association, so a correction cannot silently fall back to the wrong researcher. If requests fail and no matching source snapshot or manual additions are available, the build stops instead of deploying an accidentally empty page. Invalid configuration also fails the build. Warnings identify missing IDs and unavailable sources in the build log.
+
+Sources: [OpenAlex API](https://help.openalex.org/api/llm-quick-reference/), [Crossref API](https://github.com/CrossRef/rest-api-doc), and [arXiv API](https://info.arxiv.org/help/api/user-manual.html).
+
+## Legacy blog articles
+
+The old MDX article routes are retained, but the blog listing and navigation have been replaced by publications.
 To write a blog article, you must create a `.mdx` file and add it under the `/data/blog` folder. [MDX](https://mdxjs.com/) is an extension to the standard markdown and allows for the addition of React components. Each article file includes front matter and content. The fron matter has the following fields:
 | **Field**   | **Type**     | **Description**                                                                                                                                                           |
 |-------------|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -155,6 +260,9 @@ To add member to the people page, please add a new markdown file under the `/dat
 | bluesky      | string   | (Optional) URL to Bluesky page                                |
 | linkedin     | string   | (Optional) URL to LinkedIn page                               |
 | scholar      | string   | (Optional) URL to Google Scholar page                         |
+| openalex     | string   | (Optional) OpenAlex author ID or profile URL used to import publications |
+| publicationNames | list[string] | (Optional) Alternative full names used for researcher ID discovery |
+| publications | boolean | (Optional) Set to false to exclude this person's profile from importing |
 
 Example of a markdown front matter:
 ```markdown
@@ -194,4 +302,4 @@ Some extra information about the website:
 - When a commit is made and pushed to the main branch, GitHub Actions will execute a pipeline that will generate the static content of the website.
 - Apart from manual pushing, the website has a scheduled cron job that is used to automatically update the page every day. Currently, this feature allows the next reading group session to be updated automatically
 - Always run locally via `npm run dev` to verify that everything looks good before commiting to the main branch. If working on a new feature, please use a different branch.
-- The website is developed using TypeScript which adds typing to JavaScript. Eslint is used for verifying that all the formatting and types are correct. It is possible that the website runs under the local dev environment but fails to build because the eslint rules are not met. The most commont problem happens when a type is set to `any`. Please, run `npm run build` to verify that the wesbite will build without errors. Note that when you use this command, the `robots.txt` and `sitemap.xml` files will be generated. Make sure you do not commit them to the repository by deleting them.
+- The website is developed using TypeScript. Run `npm run build` to verify the static export and `npm run test:publications` to check the publication importer. Generated `robots.txt` and `sitemap.xml` files are written to the ignored `out/` directory.

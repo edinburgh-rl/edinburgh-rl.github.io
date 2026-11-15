@@ -8,4 +8,5 @@ x: https://x.com/max_tamborski
 linkedin: https://uk.linkedin.com/in/massimiliano-tamborski-a23a05252
 scholar: https://scholar.google.com/citations?user=YX1Zve4AAAAJ
 bluesky: https://max-tamborski.bsky.social/
+openalex: ""
 ---
