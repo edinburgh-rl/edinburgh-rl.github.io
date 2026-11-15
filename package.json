@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --webpack",
     "prebuild": "npm run publications:sync",
     "build": "next build",
     "publications:sync": "node scripts/sync-publications.mjs",
@@ -28,6 +28,7 @@
     "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
     "hastscript": "^9.0.1",
+    "katex": "0.16.23",
     "lodash": "^4.18.1",
     "next": "^16.2.4",
     "next-mdx-remote-client": "^2.1.10",

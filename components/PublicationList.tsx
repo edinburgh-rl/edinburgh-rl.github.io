@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import type { Publication } from '@/lib/publications-utils';
-import PublicationCard from './PublicationCard';
+import PublicationMasonry from './PublicationMasonry';
 import styles from './publications.module.scss';
 
 export default function PublicationList({ publications, members }: {
@@ -15,7 +15,7 @@ export default function PublicationList({ publications, members }: {
     const years = [...new Set(publications.map(paper => paper.year))].sort((a, b) => (b ?? 0) - (a ?? 0));
     const terms = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
     const filtered = publications.filter(paper => (!member || paper.memberIds.includes(member)) && (!year || String(paper.year ?? 'unknown') === year) &&
-        terms.every(term => `${paper.title} ${paper.authors.map(author => author.name).join(' ')} ${paper.venue ?? ''}`.toLocaleLowerCase().includes(term)));
+        terms.every(term => `${[paper.title, ...(paper.titles ?? [])].join(' ')} ${paper.authors.map(author => author.name).join(' ')} ${paper.venue ?? ''}`.toLocaleLowerCase().includes(term)));
     const grouped = new Map<number | null, Publication[]>();
     for (const paper of filtered) {
         const group = grouped.get(paper.year) ?? [];
@@ -55,9 +55,7 @@ export default function PublicationList({ publications, members }: {
                 groups.map(([groupYear, papers]) => (
                     <section key={groupYear ?? 'unknown'} className={styles.yearGroup} aria-labelledby={`publication-year-${groupYear ?? 'unknown'}`}>
                         <h2 id={`publication-year-${groupYear ?? 'unknown'}`} className={`title is-4 ${styles.yearHeading}`}>{groupYear ?? 'Year unavailable'}</h2>
-                        <div className={styles.grid}>
-                            {papers.map(paper => <PublicationCard key={paper.id} publication={paper} />)}
-                        </div>
+                        <PublicationMasonry publications={papers} selectedMemberId={member} />
                     </section>
                 ))
             ) : <p>No publications match these filters.</p>}

@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { parse as parseJavaScript } from 'acorn';
 import { parseFragment } from 'parse5';
-import { arxivId, arxivUrl, httpUrl } from './catalog.mjs';
+import { arxivId, arxivUrl, httpUrl, normalizeDate } from './catalog.mjs';
 
 export function textContent(node) {
   if (['script', 'style', 'nav'].includes(node.tagName)) return '';
@@ -10,6 +10,10 @@ export function textContent(node) {
 
 export function cleanText(value = '') {
   return textContent(parseFragment(String(value))).replace(/[{}]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+export function cleanAbstract(value = '') {
+  return textContent(parseFragment(String(value))).replace(/\s+/g, ' ').trim() || null;
 }
 
 function authorNames(value) {
@@ -31,11 +35,14 @@ export function recordFromFields(fields, source) {
   const url = httpUrl(fields.url ?? fields.arxiv, source);
   const arxiv = [fields.eprint, fields.arxiv, url, validDoi].map(arxivId).find(Boolean);
   const venue = cleanText(fields.journal ?? fields.booktitle ?? '') || null;
-  const year = Number(String(fields.year ?? fields.datePublished ?? '').match(/(?:18|19|20|21)\d{2}/)?.[0]) || null;
+  const publicationDate = normalizeDate(fields.publicationDate ?? fields.datePublished);
+  const year = Number(String(fields.year ?? publicationDate ?? '').match(/(?:18|19|20|21)\d{2}/)?.[0]) || null;
   const id = `citation:${createHash('sha256').update(`${source}\n${title}`).digest('hex').slice(0, 20)}`;
   return {
     id, ids: [id, ...(validDoi ? [`doi:${validDoi.toLowerCase()}`] : []), ...(arxiv ? [`arxiv:${arxiv}`] : [])],
-    title, authors, memberIds: [], venue, year,
+    title, authors, memberIds: [], venue, year, publicationDate,
+    arxivSubmittedAt: normalizeDate(fields.arxivSubmittedAt),
+    abstract: cleanAbstract(fields.abstract ?? fields.description),
     status: venue && !/arxiv|preprint|^corr$/i.test(venue) ? 'published' : arxiv ? 'preprint' : 'unknown',
     paperUrl: validDoi && !/^10\.48550\/arxiv\./i.test(validDoi) ? `https://doi.org/${validDoi}` : url ?? arxivUrl(arxiv),
     arxivUrl: arxivUrl(arxiv), landingUrls: url ? [url] : [], sources: [source],

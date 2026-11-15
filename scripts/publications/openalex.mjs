@@ -38,7 +38,7 @@ export function createOpenAlexClient({ apiKey = process.env.OPENALEX_API_KEY, fe
         seen.add(cursor);
         const data = await get('works', {
           filter: `authorships.author.id:${authorId(id)}`, per_page: '100', cursor,
-          select: 'id,title,authorships,publication_year,type,doi,primary_location,locations',
+          select: 'id,title,authorships,publication_year,publication_date,abstract_inverted_index,type,doi,primary_location,locations',
         });
         if (!Array.isArray(data.results) || !data.meta || !Object.hasOwn(data.meta, 'next_cursor')) throw new Error('Invalid OpenAlex works response.');
         for (const work of data.results) {

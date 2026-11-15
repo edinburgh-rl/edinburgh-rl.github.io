@@ -7,10 +7,14 @@ import { PeopleFrontMatter } from './people-data-utils';
 export interface Publication {
     id: string;
     title: string;
+    titles?: string[];
     authors: { name: string; memberId?: string | null }[];
     memberIds: string[];
     venue: string | null;
     year: number | null;
+    arxivSubmittedAt?: string | null;
+    publicationDate?: string | null;
+    abstract?: string | null;
     status: 'published' | 'preprint' | 'unknown';
     paperUrl: string | null;
     arxivUrl?: string | null;

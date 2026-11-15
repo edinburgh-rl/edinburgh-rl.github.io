@@ -29,6 +29,36 @@ export function arxivUrl(value) {
   return id ? `https://arxiv.org/abs/${id}` : null;
 }
 
+// Preserve the precision supplied by the source instead of inventing a month/day.
+export function normalizeDate(value) {
+  if (typeof value !== 'string') return null;
+  const match = value.trim().match(/^(\d{4})(?:[-/](\d{1,2})(?:[-/](\d{1,2}))?)?(T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2}))?$/);
+  if (!match) return null;
+  const [, year, month, day, time] = match;
+  if (+year < 1800 || +year > 2200 || (month && (+month < 1 || +month > 12)) ||
+    (day && (+day < 1 || +day > new Date(Date.UTC(+year, +month, 0)).getUTCDate())) || (time && !day)) return null;
+  const date = [year, month?.padStart(2, '0'), day?.padStart(2, '0')].filter(Boolean).join('-');
+  if (!time) return date;
+  const timestamp = Date.parse(`${date}${time}`);
+  return Number.isFinite(timestamp) ? new Date(timestamp).toISOString() : null;
+}
+
+export function comparePublications(a, b) {
+  const date = paper => Date.parse(paper.arxivSubmittedAt ?? paper.publicationDate ?? '') || 0;
+  return (b.year ?? 0) - (a.year ?? 0) || date(b) - date(a) || a.title.localeCompare(b.title) || a.id.localeCompare(b.id);
+}
+
+function mergeDetails(base, incoming) {
+  const submitted = [base.arxivSubmittedAt, incoming.arxivSubmittedAt].map(normalizeDate).filter(Boolean).sort();
+  return {
+    year: incoming.year ?? base.year ?? null,
+    arxivSubmittedAt: submitted[0] ?? null,
+    publicationDate: normalizeDate(incoming.publicationDate) ??
+      (!incoming.year || incoming.year === base.year ? normalizeDate(base.publicationDate) : null),
+    abstract: incoming.abstract || base.abstract || null,
+  };
+}
+
 export function titleSimilarity(a, b) {
   const words = value => normalizeText(value).replace(/\brl\b/g, 'reinforcement learning').split(' ').filter(Boolean);
   const aa = new Set(words(a));
@@ -82,7 +112,8 @@ function mergeAuthors(base, incoming) {
 
 export function matchesRecord(a, b) {
   if (!a?.title || !b?.title || !a.authors?.length || !b.authors?.length) return false;
-  if (a.year && b.year && Math.abs(a.year - b.year) > 2) return false;
+  const sharedIdentifier = a.ids?.some(id => /^(?:doi|arxiv):/.test(id) && b.ids?.includes(id));
+  if (!sharedIdentifier && a.year && b.year && Math.abs(a.year - b.year) > 2) return false;
   const overlap = a.authors.filter(author => b.authors.some(other => sameAuthor(author.name, other.name))).length;
   const exact = normalizeText(a.title) === normalizeText(b.title);
   const titleMatch = exact || (Math.min(normalizeText(a.title).split(' ').length, normalizeText(b.title).split(' ').length) >= 5 && titleSimilarity(a.title, b.title) >= 0.88);
@@ -92,7 +123,7 @@ export function matchesRecord(a, b) {
 export function mergeRecord(base, incoming) {
   return {
     ...base, ...incoming, id: base.id,
-    year: incoming.year ?? base.year ?? null,
+    ...mergeDetails(base, incoming),
     ids: [...new Set([...base.ids, ...incoming.ids])],
     titles: [...new Set([base.title, ...(base.titles ?? []), incoming.title, ...(incoming.titles ?? [])])],
     authors: mergeAuthors(base.authors, incoming.authors),
@@ -125,19 +156,37 @@ export function normalizeWork(work) {
     title, authors, memberIds: [],
     venue: published?.source?.display_name?.trim() ?? null,
     year: Number.isInteger(work.publication_year) ? work.publication_year : null,
+    publicationDate: normalizeDate(work.publication_date),
+    arxivSubmittedAt: null,
+    abstract: work.abstract_inverted_index && typeof work.abstract_inverted_index === 'object' ?
+      Object.entries(work.abstract_inverted_index).flatMap(([word, positions]) => Array.isArray(positions) ?
+        positions.filter(position => Number.isInteger(position) && position >= 0).map(position => [position, word]) : [])
+        .sort((a, b) => a[0] - b[0]).map(([, word]) => word).join(' ') || null : null,
     status, paperUrl: status === 'published' ? doi ?? httpUrl(published?.landing_page_url) : arxiv ? arxivUrl(arxiv) : doi,
     arxivUrl: arxiv ? arxivUrl(arxiv) : null,
     landingUrls: urls, sources: [work.id],
   };
 }
 
+function nearlyIdenticalAbstracts(a, b) {
+  const aa = normalizeText(a ?? '').split(' '), bb = normalizeText(b ?? '').split(' ');
+  if (Math.min(aa.length, bb.length) < 80 || Math.min(aa.length, bb.length) / Math.max(aa.length, bb.length) < 0.95) return false;
+  const trigrams = words => new Set(words.slice(2).map((_, index) => words.slice(index, index + 3).join(' ')));
+  const first = trigrams(aa), second = trigrams(bb);
+  return 2 * [...first].filter(phrase => second.has(phrase)).length / (first.size + second.size) >= 0.97;
+}
+
 function sameWork(a, b) {
   if (a.ids.some(id => b.ids.includes(id))) return true;
   // Conservative fallback for separate preprint/published records without shared IDs.
-  return (a.status !== 'published' || b.status !== 'published') &&
-    normalizeText(a.title).length > 25 && normalizeText(a.title) === normalizeText(b.title) &&
-    normalizeText(a.authors[0]?.name) === normalizeText(b.authors[0]?.name) &&
-    a.year !== null && b.year !== null && Math.abs(a.year - b.year) <= 2;
+  if ((a.status === 'published' && b.status === 'published') || a.year == null || b.year == null || Math.abs(a.year - b.year) > 2) return false;
+  const first = a.authors[0], second = b.authors[0];
+  if (normalizeText(a.title).length <= 25) return false;
+  if (normalizeText(a.title) === normalizeText(b.title)) return normalizeText(first?.name) === normalizeText(second?.name);
+  // A renamed repository draft can have fewer authors and no DOI/arXiv ID.
+  // Require the same known first author and almost identical long abstracts.
+  return Boolean(first?.openalexId) && first.openalexId === second?.openalexId &&
+    titleSimilarity(a.title, b.title) >= 0.8 && nearlyIdenticalAbstracts(a.abstract, b.abstract);
 }
 
 export function deduplicate(publications) {
@@ -148,12 +197,13 @@ export function deduplicate(publications) {
     for (let i = records.length - 1; i >= 0; i--) {
       if (!sameWork(merged, records[i])) continue;
       const other = records.splice(i, 1)[0];
-      const rank = paper => (paper.status === 'published' ? 10 : 0) + (paper.venue ? 2 : 0);
+      const rank = paper => (paper.status === 'published' ? 10 : 0) + (paper.venue ? 2 : 0) +
+        (paper.arxivUrl || paper.ids.some(id => id.startsWith('arxiv:')) ? 0.5 : 0) + (paper.paperUrl ? 0.1 : 0) + Math.min(paper.authors.length, 1000) / 100000;
       const preferred = rank(other) > rank(merged) ? other : merged;
       const fallback = preferred === other ? merged : other;
       merged = {
         ...preferred,
-        year: preferred.year ?? fallback.year ?? null,
+        ...mergeDetails(fallback, preferred),
         authors: mergeAuthors(fallback.authors, preferred.authors),
         titles: [...new Set([merged.title, ...(merged.titles ?? []), other.title, ...(other.titles ?? [])])],
         arxivUrl: preferred.arxivUrl ?? merged.arxivUrl ?? other.arxivUrl ?? null,
@@ -165,7 +215,7 @@ export function deduplicate(publications) {
     }
     records.push(merged);
   }
-  return records.sort((a, b) => (b.year ?? 0) - (a.year ?? 0) || a.title.localeCompare(b.title));
+  return records.sort(comparePublications);
 }
 
 export function validateSnapshot(snapshot) {
@@ -182,13 +232,15 @@ export function validateSnapshot(snapshot) {
 }
 
 function validatePatch(patch, label) {
-  const allowed = ['title', 'authors', 'memberIds', 'venue', 'year', 'status', 'paperUrl', 'arxivUrl', 'projectUrl'];
+  const allowed = ['title', 'authors', 'memberIds', 'venue', 'year', 'status', 'paperUrl', 'arxivUrl', 'projectUrl', 'arxivSubmittedAt', 'publicationDate', 'abstract'];
   if (!patch || typeof patch !== 'object' || Array.isArray(patch)) throw new Error(`Invalid ${label}`);
   for (const [key, value] of Object.entries(patch)) {
     if (!allowed.includes(key)) throw new Error(`Unknown field ${key} in ${label}`);
     if (['paperUrl', 'arxivUrl', 'projectUrl'].includes(key) && value !== null && !httpUrl(value)) throw new Error(`Invalid ${key} in ${label}`);
     if (key === 'title' && (typeof value !== 'string' || !value.trim())) throw new Error(`Invalid title in ${label}`);
     if (key === 'venue' && value !== null && typeof value !== 'string') throw new Error(`Invalid venue in ${label}`);
+    if (key === 'abstract' && value !== null && typeof value !== 'string') throw new Error(`Invalid abstract in ${label}`);
+    if (['arxivSubmittedAt', 'publicationDate'].includes(key) && value !== null && !normalizeDate(value)) throw new Error(`Invalid ${key} in ${label}`);
     if (key === 'year' && value !== null && (!Number.isInteger(value) || value < 1800 || value > 2200)) throw new Error(`Invalid year in ${label}`);
     if (key === 'status' && !['published', 'preprint', 'unknown'].includes(value)) throw new Error(`Invalid status in ${label}`);
     if (key === 'memberIds' && (!Array.isArray(value) || value.some(id => typeof id !== 'string'))) throw new Error(`Invalid memberIds in ${label}`);
@@ -256,5 +308,5 @@ export function buildCatalog(snapshot, members, overrides) {
       authors: patched.authors.map(author => ({ ...author, memberId: author.memberId ?? byAuthor.get(author.openalexId) ?? null })),
       memberIds: patched.memberIds.filter(id => eligible.some(member => member.id === id)),
     };
-  }).sort((a, b) => (b.year ?? 0) - (a.year ?? 0) || a.title.localeCompare(b.title));
+  }).sort(comparePublications);
 }

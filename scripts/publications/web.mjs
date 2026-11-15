@@ -29,9 +29,34 @@ export function parsePage(html, url) {
     return { url: httpUrl(attr(node, 'href'), url), text: textContent(node).replace(/\s+/g, ' ').trim(), context: textContent(block ?? node).replace(/\s+/g, ' ').trim().slice(0, 1800) };
   }).filter(link => link.url).slice(0, 1200);
   const records = elements.filter(node => ['pre', 'code'].includes(node.tagName)).flatMap(node => parseBibtex(textContent(node), url));
+  // Common bibliography layouts expose a title and periodical in one list row.
+  // Keep a hint until enrichment can check this row's DOI/arXiv identity.
+  const hasClass = (node, name) => (attr(node, 'class') ?? '').split(/\s+/).includes(name);
+  const descendants = node => [node, ...(node.childNodes ?? []).flatMap(descendants)];
+  const venueHints = [];
+  for (const heading of elements.filter(node => hasClass(node, 'title') || hasClass(node, 'paper-title'))) {
+    let row = heading.parentNode;
+    for (let depth = 0; row && depth < 4; depth++, row = row.parentNode) {
+      const children = descendants(row).filter(node => node.tagName);
+      if (children.filter(node => hasClass(node, 'title') || hasClass(node, 'paper-title')).length !== 1) break;
+      const periodical = children.find(node => hasClass(node, 'periodical'));
+      if (!periodical) continue;
+      const venueNode = descendants(periodical).find(node => node.tagName === 'em') ?? periodical;
+      const venue = textContent(venueNode).replace(/\s+/g, ' ').replace(/^\s*In\s+/i, '').replace(/[,\s]+$/, '').trim();
+      if (!venue || /arxiv|preprint|submitted|under review|in review/i.test(venue)) break;
+      const urls = children.filter(node => node.tagName === 'a' &&
+        (/^(?:arxiv|pdf|paper|doi|html|article|full text|download|view paper)?$/.test(normalizeText(textContent(node))) ||
+          normalizeText(textContent(node)) === normalizeText(textContent(heading)) || /^10\.\d{4,9}\//.test(textContent(node).trim())))
+        .map(node => httpUrl(attr(node, 'href'), url)).filter(Boolean);
+      venueHints.push({ title: textContent(heading).replace(/\s+/g, ' ').trim(), venue,
+        year: Number(textContent(periodical).match(/\b(?:19|20|21)\d{2}\b/)?.[0]) || null, urls });
+      break;
+    }
+  }
   const content = key => attr(meta(key) ?? {}, 'content');
   const citation = recordFromFields({ title: content('citation_title'), authors: elements.filter(node => node.tagName === 'meta' && attr(node, 'name')?.toLowerCase() === 'citation_author').map(node => attr(node, 'content')),
     journal: content('citation_journal_title') ?? content('citation_conference_title'), year: content('citation_publication_date') ?? content('citation_date'),
+    publicationDate: content('citation_publication_date') ?? content('citation_date'), abstract: content('citation_abstract') ?? content('description'),
     doi: content('citation_doi'), url: content('citation_public_url') ?? content('citation_abstract_html_url') ?? url }, url);
   if (citation) records.push(citation);
   const scripts = [];
@@ -44,7 +69,8 @@ export function parsePage(html, url) {
     } else if (body.includes('title')) records.push(...staticPublications(body, url));
   }
   return { url, title: title.trim(), headings: elements.filter(node => ['h1', 'h2'].includes(node.tagName)).map(textContent).slice(0, 30), links,
-    text: textContent(document).replace(/\s+/g, ' ').slice(0, 40000), records: [...new Map(records.map(record => [record.id, record])).values()], scripts: [...new Set(scripts)].slice(0, 2) };
+    text: textContent(document).replace(/\s+/g, ' ').slice(0, 40000), records: [...new Map(records.map(record => [record.id, record])).values()], venueHints,
+    scripts: [...new Set(scripts)].slice(0, 2) };
 }
 
 export function isPrivateAddress(address) {
@@ -136,21 +162,21 @@ export function createCrawler({ cache = {}, fetchImpl = fetch, resolve = lookup,
       if (!url) return null;
       const previous = cache[url];
       const field = kind === 'page' ? 'page' : 'records';
-      const ttl = previous?.[field] ? 7 * 86400000 : 86400000;
-      if (previous?.parserVersion === 2 && now() - Date.parse(previous.checkedAt) < ttl) return previous[field];
+      const ttl = previous?.[field] && !previous.error ? 7 * 86400000 : 86400000;
+      if ((previous?.parserVersion === 3 || previous?.error) && now() - Date.parse(previous.checkedAt) < ttl) return previous[field];
       if (requests >= maxPages) return previous?.[field] ?? null;
       requests++;
       try {
         const result = await request(url, false, 0, kind);
         if (result.status !== 200) throw new Error(`HTTP ${result.status}`);
         const data = kind === 'page' ? parsePage(result.text, result.url) : /application\/json/i.test(result.contentType ?? '') || /\.json(?:$|\?)/i.test(result.url) ? jsonPublications(JSON.parse(result.text), result.url) : staticPublications(result.text, result.url);
-        cache[url] = { checkedAt: new Date(now()).toISOString(), parserVersion: 2, [field]: data };
+        cache[url] = { checkedAt: new Date(now()).toISOString(), parserVersion: 3, [field]: data };
         return data;
       } catch (error) {
         warn(`[publications] Could not inspect ${url}: ${error.message}`);
         // Preserve the last successful page after temporary failures.
         const data = /HTTP (404|410)/.test(error.message) ? null : previous?.[field] ?? null;
-        cache[url] = { checkedAt: new Date(now()).toISOString(), parserVersion: 2, [field]: data, error: error.message };
+        cache[url] = { ...previous, checkedAt: new Date(now()).toISOString(), [field]: data, error: error.message };
         return data;
       }
   }
